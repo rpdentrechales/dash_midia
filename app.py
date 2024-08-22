@@ -31,9 +31,6 @@ df_reshaped = df_filtered.pivot_table(
 )
 df_reshaped = df_reshaped.sort_values(by="month", ascending=False)
 
-df_reshaped
-
-
 # Display the data as a table using `st.dataframe`.
 st.dataframe(
     df_reshaped,
