@@ -10,12 +10,12 @@ st.title("💎 Facebook Ads")
 # reruns (e.g. if the user interacts with the widgets).
 # @st.cache_data
 # def load_data():
-#     df = pd.read_csv("/data/fb_data_clean.csv")
+#     df = pd.read_csv("data/fb_data_clean.csv")
 #     return df
 
 
 # df = load_data()
-df = pd.read_csv("/data/fb_data_clean.csv")
+df = pd.read_csv("data/fb_data_clean.csv")
 
 # Show a multiselect widget with the genres using `st.multiselect`.
 unidades = st.multiselect(
