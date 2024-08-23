@@ -17,6 +17,8 @@ def load_data():
 df = load_data()
 # df = pd.read_csv("data/fb_data_clean.csv")
 
+st.sidebar.subheader("Insights")
+
 # Show a multiselect widget with the genres using `st.multiselect`.
 unidades = st.multiselect(
     "Unidades",
