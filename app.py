@@ -15,7 +15,17 @@ def load_data():
     return df
 
 df = load_data()
-st.title('Dash Mídia Facebook qualquer coisa')
+st.markdown(
+    """
+    <style>
+    .centered-title {
+        text-align: center;
+    }
+    </style>
+    <h1 class="centered-title">Dash Mídia Facebook qualquer coisa</h1>
+    """,
+    unsafe_allow_html=True
+)
 
 header_left,header_mid,header_right = st.columns([1,2,1],gap='large')
 
