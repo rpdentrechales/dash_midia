@@ -19,7 +19,7 @@ df = load_data()
 header_left,header_mid,header_right = st.columns([1,2,1],gap='large')
 
 with header_mid:
-    st.title('Dash Mídia Facebook')
+    st.title('Dash Mídia Facebook qualquer coisa')
 
 with st.sidebar:
     unidade_filter = st.multiselect(label= 'Selecione a Unidade',
