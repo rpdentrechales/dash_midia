@@ -26,12 +26,12 @@ with st.sidebar:
                                 options=df['store'].unique(),
                                 default=df['store'].unique())
 
-df1 = df.query('store == @unidade_filter')
+df_filtered = df.query('store == @unidade_filter')
 
-total_resultados = float(df1['Resultados'].sum())
-total_custo = float(df1['Valor usado (BRL)'].sum())
-total_impressoes = float(df1['Impressões'].sum())
-total_alcance= float(df1['Alcance'].sum()) 
+total_resultados = float(df_filtered['Resultados'].sum())
+total_custo = float(df_filtered['Valor usado (BRL)'].sum())
+total_impressoes = float(df_filtered['Impressões'].sum())
+total_alcance= float(df_filtered['Alcance'].sum()) 
 
 total1,total2,total3,total4 = st.columns(4,gap='large')
 
@@ -46,3 +46,15 @@ with total3:
 
 with total4:
     st.metric(label='Alcance Total',value=numerize(total_alcance))
+
+df_reshaped = df_filtered.pivot_table(
+    index="month", columns="category", values="Resultados", aggfunc="sum", fill_value=0
+)
+df_reshaped = df_reshaped.sort_values(by="month", ascending=False)
+
+# Display the data as a table using `st.dataframe`.
+st.dataframe(
+    df_reshaped,
+    use_container_width=True,
+    column_config={"year": st.column_config.TextColumn("Year")},
+)
