@@ -46,9 +46,6 @@ with total3:
 with total4:
     st.metric(label='Alcance Total',value=numerize(total_alcance))
 
-
-
-
 df_reshaped = df_filtered.pivot_table(
     index="month", columns="category", values="Resultados", aggfunc="sum", fill_value=0
 )
@@ -73,8 +70,8 @@ st.markdown(
 table = st.columns(1)
 
 with table:
-    st.dataframe(
-      df_reshaped,
-      use_container_width=True,
-      column_config={"year": st.column_config.TextColumn("Year")},
+  st.dataframe(
+    df_reshaped,
+    use_container_width=True,
+    column_config={"year": st.column_config.TextColumn("Year")},
   )
