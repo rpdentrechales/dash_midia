@@ -56,13 +56,17 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+procedimentos_filter = st.multiselect(label= 'Selecione o procedimentos',
+                                options=df_reshaped.columns,
+                                default=df_reshaped.columns)
+
 graph_1,graph_2 = st.columns(2,gap='small')
 
 with graph_1:
-  st.bar_chart(data=df_reshaped)
+  st.bar_chart(data=df_reshaped,y=procedimentos_filter)
 
 with graph_2:
-  st.line_chart(data=df_reshaped)
+  st.line_chart(data=df_reshaped,y=procedimentos_filter)
 
 
 st.markdown(
