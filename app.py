@@ -59,8 +59,11 @@ st.markdown(
 graph_1,graph_2 = st.columns(2,gap='small')
 
 with graph_1:
-  # Display the data as a table using `st.dataframe`.
   st.bar_chart(data=df_reshaped)
+
+with graph_2:
+  st.line_chart(data=df_reshape)
+
 
 st.markdown(
     '<style>.left-title { text-align: center; }</style><h1 class="left-title">Tabelas</h1>',
