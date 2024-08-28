@@ -62,7 +62,7 @@ with graph_1:
   st.bar_chart(data=df_reshaped)
 
 with graph_2:
-  st.line_chart(data=df_reshape)
+  st.line_chart(data=df_reshaped)
 
 
 st.markdown(
