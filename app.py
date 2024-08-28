@@ -69,7 +69,7 @@ st.markdown(
 
 table = st.columns(1)
 
-with table:
+with table[0]:
   st.dataframe(
     df_reshaped,
     use_container_width=True,
