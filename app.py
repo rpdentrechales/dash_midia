@@ -47,7 +47,7 @@ with total4:
     st.metric(label='Alcance Total',value=numerize(total_alcance))
 
 
-graph_1,graph_2 = st.columns(2,gap='small')
+
 
 df_reshaped = df_filtered.pivot_table(
     index="month", columns="category", values="Resultados", aggfunc="sum", fill_value=0
@@ -59,6 +59,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+graph_1,graph_2 = st.columns(2,gap='small')
 
 with graph_1:
   # Display the data as a table using `st.dataframe`.
