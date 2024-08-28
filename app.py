@@ -5,7 +5,7 @@ import plotly.express as px
 from numerize.numerize import numerize
 
 # Show the page title and description.
-st.set_page_config(page_title="Pró-Corpo - Dash de Mídia", page_icon="💎")
+st.set_page_config(page_title="Pró-Corpo - Dash de Mídia", page_icon="💎",layout="wide")
 
 # Load the data from a CSV. We're caching this so it doesn't reload every time the app
 # reruns (e.g. if the user interacts with the widgets).
