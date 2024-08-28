@@ -5,7 +5,7 @@ import plotly.express as px
 from numerize.numerize import numerize
 
 # Show the page title and description.
-st.set_page_config(page_title="Pró-Corpo - Dash de Mídia", page_icon="💎")
+st.set_page_config(page_title="Pró-Corpo - Dash de Mídia", page_icon="💎",layout="wide")
 
 # Load the data from a CSV. We're caching this so it doesn't reload every time the app
 # reruns (e.g. if the user interacts with the widgets).
@@ -46,6 +46,9 @@ with total3:
 with total4:
     st.metric(label='Alcance Total',value=numerize(total_alcance))
 
+
+graph_1,graph_2 = st.columns(2,gap='small')
+
 df_reshaped = df_filtered.pivot_table(
     index="month", columns="category", values="Resultados", aggfunc="sum", fill_value=0
 )
@@ -56,18 +59,10 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-procedimentos_filter = st.multiselect(label= 'Selecione o procedimentos',
-                                options=df_reshaped.columns,
-                                default=df_reshaped.columns)
-
-graph_1,graph_2 = st.columns(2,gap='small')
 
 with graph_1:
-  st.bar_chart(data=df_reshaped,y=procedimentos_filter)
-
-with graph_2:
-  st.line_chart(data=df_reshaped,y=procedimentos_filter)
-
+  # Display the data as a table using `st.dataframe`.
+  st.bar_chart(data=df_reshaped,x= "month")
 
 st.markdown(
     '<style>.left-title { text-align: center; }</style><h1 class="left-title">Tabelas</h1>',
@@ -76,9 +71,9 @@ st.markdown(
 
 table = st.columns(1)
 
-with table[0]:
-  st.dataframe(
-    df_reshaped,
-    use_container_width=True,
-    column_config={"year": st.column_config.TextColumn("Year")},
+with table:
+    st.dataframe(
+      df_reshaped,
+      use_container_width=True,
+      column_config={"year": st.column_config.TextColumn("Year")},
   )
