@@ -56,7 +56,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-procedimentos_filter = st.multiselect(label= 'Selecione o procedimentos',
+procedimentos_filter = st.multiselect(label= 'Selecione os procedimentos',
                                 options=df_reshaped.columns,
                                 default=df_reshaped.columns)
 
