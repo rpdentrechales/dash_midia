@@ -16,14 +16,7 @@ def load_data():
 
 df = load_data()
 st.markdown(
-    """
-    <style>
-    .centered-title {
-        text-align: center;
-    }
-    </style>
-    <h1 class="centered-title">Dash Mídia Facebook qualquer coisa</h1>
-    """,
+    '<style>.centered-title { text-align: center; }</style><h1 class="centered-title">Dash Mídia Facebook</h1>',
     unsafe_allow_html=True
 )
 
