@@ -20,9 +20,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-header_left,header_mid,header_right = st.columns([1,2,1],gap='large')
-
-
 with st.sidebar:
     unidade_filter = st.multiselect(label= 'Selecione a Unidade',
                                 options=df['store'].unique(),
@@ -57,9 +54,25 @@ df_reshaped = df_filtered.pivot_table(
 )
 df_reshaped = df_reshaped.sort_values(by="month", ascending=False)
 
-# Display the data as a table using `st.dataframe`.
+st.markdown(
+    '<style>.left-title { text-align: center; }</style><h1 class="left-title">Gráficos</h1>',
+    unsafe_allow_html=True
+)
+
+
 with graph_1:
-  st.dataframe(
+  # Display the data as a table using `st.dataframe`.
+  st.bar_chart(data=df_reshaped,x= "month")
+
+st.markdown(
+    '<style>.left-title { text-align: center; }</style><h1 class="left-title">Tabelas</h1>',
+    unsafe_allow_html=True
+)
+
+table = st.columns(1)
+
+with table:
+    st.dataframe(
       df_reshaped,
       use_container_width=True,
       column_config={"year": st.column_config.TextColumn("Year")},
