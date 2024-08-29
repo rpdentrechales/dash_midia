@@ -5,12 +5,12 @@ fb_page = st.Page(
     "views/fb_dash.py",
     title="Facebook Dash",
     icon=":material/thumb_up:",
-    default=True,
 )
 google_page = st.Page(
     "/views/google_dash.py",
     title="Google Dash",
     icon=":material/search:",
+    default=True,
 )
 
 
