@@ -7,7 +7,7 @@ fb_page = st.Page(
     icon=":material/thumb_up:",
 )
 google_page = st.Page(
-    "/views/google_dash.py",
+    "views/google_dash.py",
     title="Google Dash",
     icon=":material/search:",
     default=True,
