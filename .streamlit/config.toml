@@ -1,5 +1,9 @@
 
 [theme]
+
+
+base = "dark"
+
 # Primary accent color for interactive elements.
 primaryColor = "#d33682"
 
