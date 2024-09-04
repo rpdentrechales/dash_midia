@@ -4,3 +4,4 @@ altair
 plotly
 numerize
 facebook_business
+datetime
