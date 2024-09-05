@@ -3,5 +3,5 @@ pandas
 altair
 plotly
 numerize
-facebook_business
+st-gsheets-connection
 datetime
