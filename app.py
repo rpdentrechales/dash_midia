@@ -12,6 +12,12 @@ google_page = st.Page(
     icon=":material/search:",
     default=True,
 )
+gsheets_test = st.Page(
+    "views/test_gsheets.py",
+    title="Teste Gsheets",
+    icon=":material/bug_report:",
+    default=True,
+)
 
 
 # --- NAVIGATION SETUP [WITHOUT SECTIONS] ---
@@ -20,7 +26,8 @@ google_page = st.Page(
 # --- NAVIGATION SETUP [WITH SECTIONS]---
 pg = st.navigation(
     {
-        "Relatórios": [fb_page, google_page]
+        "Relatórios": [fb_page, google_page],
+        "teste": [gsheets_test]
     }
 )
 
