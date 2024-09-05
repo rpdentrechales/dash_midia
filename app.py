@@ -10,7 +10,6 @@ google_page = st.Page(
     "views/google_dash.py",
     title="Google Dash",
     icon=":material/search:",
-    default=True,
 )
 gsheets_test = st.Page(
     "views/test_gsheets.py",
