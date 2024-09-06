@@ -5,6 +5,8 @@ import plotly.express as px
 from numerize.numerize import numerize
 from streamlit_gsheets import GSheetsConnection
 
+st.set_page_config(page_title="Pró-Corpo - Relatório Facebook", page_icon="💎",layout="wide")
+
 conn = st.connection("gsheets", type=GSheetsConnection)
 df = conn.read(worksheet="FB - Compilado")
 
@@ -13,7 +15,7 @@ df.drop_duplicates(subset=["Day","Ad Set ID"],inplace=True)
 conn.update(data=df,worksheet="FB - Compilado")
 
 # Show the page title and description.
-st.set_page_config(page_title="Pró-Corpo - Relatório Facebook", page_icon="💎",layout="wide")
+
 
 st.markdown(
     '<style>.centered-title { text-align: center; }</style><h1 class="centered-title">Dash Mídia Facebook</h1>',
