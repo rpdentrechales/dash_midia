@@ -3,36 +3,37 @@ import altair as alt
 import pandas as pd
 import plotly.express as px
 from numerize.numerize import numerize
+from streamlit_gsheets import GSheetsConnection
+
+conn = st.connection("gsheets", type=GSheetsConnection)
+df = conn.read(worksheet="FB - Compilado")
+
+df.drop_duplicates(subset=["Day","Ad Set ID"],inplace=True)
+
+conn.update(data=df,worksheet="FB - Compilado")
 
 # Show the page title and description.
-st.set_page_config(page_title="Pró-Corpo - Dash de Mídia", page_icon="💎",layout="wide")
+st.set_page_config(page_title="Pró-Corpo - Relatório Facebook", page_icon="💎",layout="wide")
 
-# Load the data from a CSV. We're caching this so it doesn't reload every time the app
-# reruns (e.g. if the user interacts with the widgets).
-@st.cache_data
-def load_data():
-    df = pd.read_csv("data/fb_data_clean.csv")
-    return df
-
-df = load_data()
 st.markdown(
     '<style>.centered-title { text-align: center; }</style><h1 class="centered-title">Dash Mídia Facebook</h1>',
     unsafe_allow_html=True
 )
 
+
+# ['Day', 'Account Name', 'Campaign Name', 'Ad Set Name', 'Ad Set ID','Results', 'Amount Spent']
+
 with st.sidebar:
-    unidade_filter = st.multiselect(label= 'Selecione a Unidade',
-                                options=df['store'].unique(),
-                                default=df['store'].unique())
+    account_filter = st.multiselect(label= 'Selecione a Conta',
+                                options=df['Account Name'].unique(),
+                                default=df['Account Name'].unique())
 
-df_filtered = df.query('store == @unidade_filter')
+df_filtered = df.query('Account Name == @account_filter')
 
-total_resultados = float(df_filtered['Resultados'].sum())
-total_custo = float(df_filtered['Valor usado (BRL)'].sum())
-total_impressoes = float(df_filtered['Impressões'].sum())
-total_alcance= float(df_filtered['Alcance'].sum())
+total_resultados = float(df_filtered['Results'].sum())
+total_custo = float(df_filtered['Amount Spent'].sum())
 
-total1,total2,total3,total4 = st.columns(4,gap='large')
+total1,total2= st.columns(2,gap='large')
 
 with total1:
     st.metric(label = 'Custo Total', value= numerize(total_custo))
@@ -40,33 +41,27 @@ with total1:
 with total2:
     st.metric(label='Resultados Total', value=numerize(total_resultados))
 
-with total3:
-    st.metric(label= 'Impressões Total',value=numerize(total_impressoes,2))
-
-with total4:
-    st.metric(label='Alcance Total',value=numerize(total_alcance))
-
 df_reshaped = df_filtered.pivot_table(
-    index="month", columns="category", values="Resultados", aggfunc="sum", fill_value=0
+    index="Day", columns="Campaign Name", values="Amount Spent", aggfunc="sum", fill_value=0
 )
-df_reshaped = df_reshaped.sort_values(by="month", ascending=False)
+df_reshaped = df_reshaped.sort_values(by="Day", ascending=False)
 
 st.markdown(
     '<style>.left-title { text-align: center; }</style><h1 class="left-title">Gráficos</h1>',
     unsafe_allow_html=True
 )
 
-procedimentos_filter = st.multiselect(label= 'Selecione os procedimentos',
+campanha_filter = st.multiselect(label= 'Selecione os campanha',
                                 options=df_reshaped.columns,
                                 default=df_reshaped.columns)
 
 graph_1,graph_2 = st.columns(2,gap='small')
 
 with graph_1:
-  st.bar_chart(data=df_reshaped,y=procedimentos_filter)
+  st.bar_chart(data=df_reshaped,y=campanha_filter)
 
 with graph_2:
-  st.line_chart(data=df_reshaped,y=procedimentos_filter)
+  st.line_chart(data=df_reshaped,y=campanha_filter)
 
 
 st.markdown(
@@ -80,5 +75,4 @@ with table[0]:
   st.dataframe(
     df_reshaped,
     use_container_width=True,
-    column_config={"year": st.column_config.TextColumn("Year")},
   )
