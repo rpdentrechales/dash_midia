@@ -30,7 +30,7 @@ with st.sidebar:
                                 options=df['Account Name'].unique(),
                                 default=df['Account Name'].unique())
 
-df_filtered = df.query('Account Name == @account_filter')
+df_filtered = df.query('account_filter == @Account Name')
 
 total_resultados = float(df_filtered['Results'].sum())
 total_custo = float(df_filtered['Amount Spent'].sum())
