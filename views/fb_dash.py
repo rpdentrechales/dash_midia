@@ -56,6 +56,8 @@ with filtro_2:
       format="DD/MM/YYYY",
   )
 
+  date_picker = pd.to_datetime(date_picker)
+
 df_filtered = df.loc[df['Account Name'].isin(account_filter)]
 df_filtered = df_filtered.loc[df_filtered['Day'].between(date_picker[0],date_picker[1])]
 
