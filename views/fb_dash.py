@@ -50,6 +50,7 @@ df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
 
 df = pd.merge(df,df_unidades,how="left",left_on="Campaign Name",right_on="Campaign Name")
 
+st.write(df.columns)
 st.dataframe(df)
 
 # Show the page title and description.
