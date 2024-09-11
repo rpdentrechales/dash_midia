@@ -9,7 +9,8 @@ import datetime
 st.set_page_config(page_title="Pró-Corpo - Relatório Facebook", page_icon="💎",layout="wide")
 
 @st.cache_data
-def load_dataframe(worksheet):
+def load_main_dataframe(worksheet):
+
   conn = st.connection("gsheets", type=GSheetsConnection)
   df = conn.read(worksheet=worksheet)
 
@@ -27,11 +28,19 @@ def load_dataframe(worksheet):
 
   return df
 
-df = load_dataframe("FB - Compilado")
+@st.cache_data
+def load_aux_dataframe(worksheet):
 
-df_categorias = load_dataframe("Auxiliar - Categorias")
-df_unidades = load_dataframe("Auxiliar - Unidades")
-df_whatsapp = load_dataframe("Auxiliar - Whatsapp")
+  conn = st.connection("gsheets", type=GSheetsConnection)
+  df = conn.read(worksheet=worksheet)
+
+  return df
+
+df = load_main_dataframe("FB - Compilado")
+
+df_categorias = load_aux_dataframe("Auxiliar - Categorias")
+df_unidades = load_aux_dataframe("Auxiliar - Unidades")
+df_whatsapp = load_aux_dataframe("Auxiliar - Whatsapp")
 
 df["categoria"] = pd.merge(df,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
 
