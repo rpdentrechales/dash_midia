@@ -42,7 +42,7 @@ df_categorias = load_aux_dataframe("Auxiliar - Categorias")
 df_unidades = load_aux_dataframe("Auxiliar - Unidades")
 df_whatsapp = load_aux_dataframe("Auxiliar - Whatsapp")
 
-df["categoria"] = pd.merge(df,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
+df = pd.merge(df,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
 
 st.dataframe(df)
 
