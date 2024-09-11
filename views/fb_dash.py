@@ -47,8 +47,6 @@ df = df.drop(columns=["Anuncio"])
 df["Results"] = df["Results"].fillna(0)
 df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
 
-df = pd.merge(df,df_unidades,how="left",left_on="Campaign Name",right_on="Campaign Name")
-
 st.write(df.columns)
 
 # Show the page title and description.
