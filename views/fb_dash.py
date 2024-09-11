@@ -44,6 +44,11 @@ df_whatsapp = load_aux_dataframe("Auxiliar - Whatsapp")
 
 df = pd.merge(df,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
 
+df = df.drop(columns=["Anuncio"])
+
+df["Results"] = df["Results"].fillna(0)
+df["Categoria"] = df["Categoria"].fillna("Sem Categoria")  
+
 st.dataframe(df)
 
 # Show the page title and description.
