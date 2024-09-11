@@ -8,10 +8,13 @@ import datetime
 
 st.set_page_config(page_title="Pró-Corpo - Relatório Facebook", page_icon="💎",layout="wide")
 
+st.secrets["OpenAI_key"] == "your OpenAI key"
+
+
 @st.cache_data
-def load_dataframe():
+def load_dataframe(worksheet):
   conn = st.connection("gsheets", type=GSheetsConnection)
-  df = conn.read(worksheet="FB - Compilado")
+  df = conn.read(worksheet=worksheet)
 
   df['Day'] = pd.to_datetime(df['Day'])
 
@@ -27,7 +30,15 @@ def load_dataframe():
 
   return df
 
-df = load_dataframe()
+df = load_dataframe("FB - Compilado")
+
+df_categorias = load_dataframe("Auxiliar - Categorias")
+df_unidades = load_dataframe("Auxiliar - Unidades")
+df_whatsapp = load_dataframe("Auxiliar - Whatsapp")
+
+df["categoria"] = pd.merge(df,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
+
+st.dataframe(df)
 
 # Show the page title and description.
 
