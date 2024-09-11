@@ -14,10 +14,18 @@ def load_dataframe():
   conn = st.connection("gsheets", type=GSheetsConnection)
   df = conn.read(worksheet="FB - Compilado")
 
+  df['Day'] = pd.to_datetime(df['Day'])
+
+  df["Account Name"] = df["Account Name"].astype(str)
+  df["Campaign Name"] = df["Campaign Name"].astype(str)
+  df["Ad Set Name"] = df["Ad Set Name"].astype(str)
+  df["Ad Name"] = df["Ad Name"].astype(str)
+  df["Ad Id"] = df["Ad Id"].astype(str)
+  
   df.drop_duplicates(subset=["Day","Ad ID"],inplace=True)
 
   conn.update(data=df,worksheet="FB - Compilado")
-  
+
   return df
 
 df = load_dataframe()
@@ -30,24 +38,31 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.title("Filtros")
 
-with st.sidebar:
-    account_filter = st.multiselect(label= 'Selecione a Conta',
-                                options=df['Account Name'].unique(),
-                                default=df['Account Name'].unique())
+filtro_1,filtro_2,filtro_3,filtro_4= st.columns(4,gap='large')
+
+with filtro_1:
+  account_filter = st.multiselect(label= 'Selecione a Conta',
+                                  options=df['Account Name'].unique(),
+                                  default=df['Account Name'].unique())
 
 df_filtered = df.loc[df['Account Name'].isin(account_filter)]
 
 total_resultados = float(df_filtered['Results'].sum())
 total_custo = float(df_filtered['Amount Spent'].sum())
+custo_por_resultado = total_custo/total_resultados
 
-total1,total2= st.columns(2,gap='large')
+metric_1,metric_2,metric_3= st.columns(3,gap='large')
 
-with total1:
-    st.metric(label = 'Custo Total', value= numerize(total_custo))
+with metric_1:
+    st.metric(label = 'Custo Total', value= f"R${numerize(total_custo)}")
 
-with total2:
+with metric_2:
     st.metric(label='Resultados Total', value=numerize(total_resultados))
+
+with metric_3:
+    st.metric(label='Custo por Resultado', value= f"R${numerize(custo_por_resultado)}")
 
 df_reshaped = df_filtered.pivot_table(
     index="Day", columns="Campaign Name", values="Amount Spent", aggfunc="sum", fill_value=0
