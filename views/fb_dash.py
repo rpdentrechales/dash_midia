@@ -48,7 +48,7 @@ with filtro_1:
   
 with filtro_2:
   today = datetime.datetime.now()
-  first_day_month = datetime.date(today.replace(day=1))
+  first_day_month = today.replace(day=1)
 
   date_picker = st.date_input(
       label="Select your vacation for next year",
