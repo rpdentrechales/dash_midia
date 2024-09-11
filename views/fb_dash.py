@@ -67,7 +67,7 @@ total_custo = float(df_filtered['Amount Spent'].sum())
 try:
   custo_por_resultado = total_custo/total_resultados
 except:
-  custo_por_resultado = "n/a"
+  custo_por_resultado = 0
 
 metric_1,metric_2,metric_3= st.columns(3,gap='large')
 
