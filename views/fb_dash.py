@@ -39,7 +39,7 @@ st.markdown(
 
 st.title("Filtros")
 
-filtro_1,filtro_2,filtro_3,filtro_4= st.columns(4,gap='large')
+filtro_1,filtro_2,filtro_3= st.columns(3,gap='small')
 
 with filtro_1:
   account_filter = st.multiselect(label= 'Selecione a Conta',
