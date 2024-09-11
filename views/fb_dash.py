@@ -51,7 +51,7 @@ with filtro_2:
   first_day_month = today.replace(day=1)
 
   date_picker = st.date_input(
-      label="Select your vacation for next year",
+      label="Selecionar data",
       value = (first_day_month, today),
       format="DD/MM/YYYY",
   )
