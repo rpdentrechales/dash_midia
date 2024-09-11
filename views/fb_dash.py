@@ -8,9 +8,6 @@ import datetime
 
 st.set_page_config(page_title="Pró-Corpo - Relatório Facebook", page_icon="💎",layout="wide")
 
-st.secrets["OpenAI_key"] == "your OpenAI key"
-
-
 @st.cache_data
 def load_dataframe(worksheet):
   conn = st.connection("gsheets", type=GSheetsConnection)
