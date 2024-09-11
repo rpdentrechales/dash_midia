@@ -63,7 +63,11 @@ df_filtered = df_filtered.loc[df_filtered['Day'].between(date_picker[0],date_pic
 
 total_resultados = float(df_filtered['Results'].sum())
 total_custo = float(df_filtered['Amount Spent'].sum())
-custo_por_resultado = total_custo/total_resultados
+
+try:
+  custo_por_resultado = total_custo/total_resultados
+except:
+  custo_por_resultado = "n/a"
 
 metric_1,metric_2,metric_3= st.columns(3,gap='large')
 
