@@ -21,7 +21,7 @@ def load_main_dataframe(worksheet):
   df["Ad Set Name"] = df["Ad Set Name"].astype(str)
   df["Ad Name"] = df["Ad Name"].astype(str)
   df["Ad ID"] = df["Ad ID"].astype(str)
-  
+
   df.drop_duplicates(subset=["Day","Ad ID"],inplace=True)
 
   conn.update(data=df,worksheet="FB - Compilado")
@@ -29,25 +29,26 @@ def load_main_dataframe(worksheet):
   return df
 
 @st.cache_data
-def load_aux_dataframe(worksheet):
+def load_aux_dataframe(worksheet,duplicates_subset):
 
   conn = st.connection("gsheets", type=GSheetsConnection)
   df = conn.read(worksheet=worksheet)
+  df = df.drop_duplicates(subset=duplicates_subset)
 
   return df
 
 df = load_main_dataframe("FB - Compilado")
 
-df_categorias = load_aux_dataframe("Auxiliar - Categorias")
-df_unidades = load_aux_dataframe("Auxiliar - Unidades")
-df_whatsapp = load_aux_dataframe("Auxiliar - Whatsapp")
+df_categorias = load_aux_dataframe("Auxiliar - Categorias","Anuncio")
+df_unidades = load_aux_dataframe("Auxiliar - Unidades","Campaign Name")
+df_whatsapp = load_aux_dataframe("Auxiliar - Whatsapp","Ad Name")
 
 df = pd.merge(df,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
-
 df = df.drop(columns=["Anuncio"])
-
 df["Results"] = df["Results"].fillna(0)
-df["Categoria"] = df["Categoria"].fillna("Sem Categoria")  
+df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
+
+df = pd.merge(df,df_unidades,how="left",left_on="Campaign Name",right_on="Campaign Name")
 
 st.dataframe(df)
 
@@ -67,7 +68,7 @@ with filtro_1:
   account_filter = st.multiselect(label= 'Selecione a Conta',
                                   options=df['Account Name'].unique(),
                                   default=df['Account Name'].unique())
-  
+
 with filtro_2:
   today = datetime.datetime.now()
   first_day_month = today.replace(day=1)
