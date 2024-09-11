@@ -20,7 +20,7 @@ def load_dataframe():
   
   return df
 
-df = load_dataframe('https://docs.google.com/spreadsheets/d/1A5sFf-hvJRs8FPo4I0UnZwbQ0q1afkT6qYboj3OC8tI/edit?usp=sharing')
+df = load_dataframe()
 
 # Show the page title and description.
 
