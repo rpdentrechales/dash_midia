@@ -7,12 +7,20 @@ from streamlit_gsheets import GSheetsConnection
 
 st.set_page_config(page_title="Pró-Corpo - Relatório Facebook", page_icon="💎",layout="wide")
 
-conn = st.connection("gsheets", type=GSheetsConnection)
-df = conn.read(worksheet="FB - Compilado")
 
-df.drop_duplicates(subset=["Day","Ad Set ID"],inplace=True)
+@st.cache_data
 
-conn.update(data=df,worksheet="FB - Compilado")
+def load_dataframe():
+  conn = st.connection("gsheets", type=GSheetsConnection)
+  df = conn.read(worksheet="FB - Compilado")
+
+  df.drop_duplicates(subset=["Day","Ad ID"],inplace=True)
+
+  conn.update(data=df,worksheet="FB - Compilado")
+  
+  return df
+
+df = load_dataframe('https://docs.google.com/spreadsheets/d/1A5sFf-hvJRs8FPo4I0UnZwbQ0q1afkT6qYboj3OC8tI/edit?usp=sharing')
 
 # Show the page title and description.
 
@@ -22,8 +30,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
-# ['Day', 'Account Name', 'Campaign Name', 'Ad Set Name', 'Ad Set ID','Results', 'Amount Spent']
 
 with st.sidebar:
     account_filter = st.multiselect(label= 'Selecione a Conta',
