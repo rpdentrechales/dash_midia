@@ -4,12 +4,11 @@ import pandas as pd
 import plotly.express as px
 from numerize.numerize import numerize
 from streamlit_gsheets import GSheetsConnection
+import datetime
 
 st.set_page_config(page_title="Pró-Corpo - Relatório Facebook", page_icon="💎",layout="wide")
 
-
 @st.cache_data
-
 def load_dataframe():
   conn = st.connection("gsheets", type=GSheetsConnection)
   df = conn.read(worksheet="FB - Compilado")
@@ -20,7 +19,7 @@ def load_dataframe():
   df["Campaign Name"] = df["Campaign Name"].astype(str)
   df["Ad Set Name"] = df["Ad Set Name"].astype(str)
   df["Ad Name"] = df["Ad Name"].astype(str)
-  df["Ad Id"] = df["Ad Id"].astype(str)
+  df["Ad ID"] = df["Ad ID"].astype(str)
   
   df.drop_duplicates(subset=["Day","Ad ID"],inplace=True)
 
@@ -46,8 +45,19 @@ with filtro_1:
   account_filter = st.multiselect(label= 'Selecione a Conta',
                                   options=df['Account Name'].unique(),
                                   default=df['Account Name'].unique())
+  
+with filtro_2:
+  today = datetime.datetime.now()
+  first_day_month = datetime.date(today.replace(day=1))
+
+  date_picker = st.date_input(
+      label="Select your vacation for next year",
+      value = (first_day_month, today),
+      format="DD/MM/YYYY",
+  )
 
 df_filtered = df.loc[df['Account Name'].isin(account_filter)]
+df_filtered = df_filtered.loc[df_filtered['Day'].between(date_picker[0],date_picker[1])]
 
 total_resultados = float(df_filtered['Results'].sum())
 total_custo = float(df_filtered['Amount Spent'].sum())
