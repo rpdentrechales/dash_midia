@@ -47,7 +47,7 @@ df = df.drop(columns=["Anuncio"])
 df["Results"] = df["Results"].fillna(0)
 df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
 
-st.write(df.columns)
+st.write(df_unidades.columns)
 
 # Show the page title and description.
 
