@@ -151,7 +151,7 @@ metric_filter = st.selectbox(label= 'Selecione a Métrica',
                                  index=0)
 
 if (metric_filter == "Amount Spent"):
-  table = df_amount_spent
+  table = df_amount_spent.copy()
   table.loc['Total'] = table.sum()
   table = table.applymap(lambda x: f"R${x:,.2f}")
 
@@ -159,8 +159,9 @@ if (metric_filter == "Amount Spent"):
   markdown = "Custo (R$)"
 
 elif (metric_filter == "Results"):
-  table = df_results
+  table = df_results.copy()
   table.loc['Total'] = table.sum()
+
   graph = df_results
   markdown = "Resultados"
 
