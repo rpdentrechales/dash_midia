@@ -48,7 +48,17 @@ df = df.drop(columns=["Anuncio"])
 df["Results"] = df["Results"].fillna(0)
 df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
 
-st.write(df_unidades.columns)
+df = pd.merge(df,df_unidades,how="left",left_on="Campaign Name",right_on="Campaign Name")
+# df = df.drop(columns=["Anuncio"])
+df["Unidade"] = df["Unidade"].fillna("Sem Categoria")
+df["Região"] = df["Região"].fillna("Sem Categoria")
+
+# df = pd.merge(df,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
+# df = df.drop(columns=["Anuncio"])
+# df["Results"] = df["Results"].fillna(0)
+# df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
+
+st.dataframe(df)
 
 # Show the page title and description.
 
