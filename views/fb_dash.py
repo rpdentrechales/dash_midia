@@ -12,7 +12,7 @@ st.set_page_config(page_title="Pró-Corpo - Relatório Facebook", page_icon="�
 def load_main_dataframe(worksheet):
 
   conn = st.connection("gsheets", type=GSheetsConnection)
-  df = conn.read(worksheet=worksheet)
+  df = conn.read(worksheet=worksheet,dtype={"Ad ID": str})
 
   df['Day'] = pd.to_datetime(df['Day'])
 
