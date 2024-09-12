@@ -133,34 +133,45 @@ visualizao_filter = st.selectbox(label= 'Selecione a Visualização',
 df_amount_spent = df_filtered.pivot_table(
     index="Day", columns=visualizao_filter, values="Amount Spent", aggfunc="sum", fill_value=0
 )
+
+df_amount_spent.index = pd.to_datetime(df_amount_spent.index).strftime('%d/%m/%Y')
 df_amount_spent = df_amount_spent.sort_values(by="Day", ascending=False)
-df_amount_spent = df_amount_spent.applymap(lambda x: f"R${x:,.2f}")
 
 df_results = df_filtered.pivot_table(
     index="Day", columns=visualizao_filter, values="Results", aggfunc="sum", fill_value=0
 )
+
+df_results.index = pd.to_datetime(df_results.index).strftime('%d/%m/%Y')
 df_results = df_results.sort_values(by="Day", ascending=False)
 
 graph_1,graph_2 = st.columns(2,gap='small')
 
 with graph_1:
-  st.markdown("## Custo")
+  st.markdown("## Custo (R$)")
   st.line_chart(data=df_amount_spent,y=df_amount_spent.columns)
 
 with graph_2:
   st.markdown("## Resultados")
   st.line_chart(data=df_results,y=df_results.columns)
 
+st.markdown("## Tabelas")
 
-st.markdown(
-    '<style>.left-title { text-align: center; }</style><h1 class="left-title">Tabelas</h1>',
-    unsafe_allow_html=True
-)
+metric_filter = st.selectbox(label= 'Selecione a Métrica',
+                                 placeholder = 'Selecione a Métrica',
+                                 options=["Amount Spent","Results"],
+                                 index=0)
 
-table = st.columns(1)
+if (metric_filter == "Amount Spent"):
+  table = df_amount_spent
+  table = table.applymap(lambda x: f"R${x:,.2f}")
 
-with table[0]:
-  st.dataframe(
-    df_amount_spent,
+elif (metric_filter == "Results"):
+  table = df_results
+
+else:
+  table = None
+
+st.dataframe(
+    table,
     use_container_width=True,
   )
