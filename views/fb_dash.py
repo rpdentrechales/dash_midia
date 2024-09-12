@@ -152,6 +152,7 @@ metric_filter = st.selectbox(label= 'Selecione a Métrica',
 
 if (metric_filter == "Amount Spent"):
   table = df_amount_spent
+  table.loc['Total'] = table.sum()
   table = table.applymap(lambda x: f"R${x:,.2f}")
 
   graph = df_amount_spent
@@ -159,6 +160,7 @@ if (metric_filter == "Amount Spent"):
 
 elif (metric_filter == "Results"):
   table = df_results
+  table.loc['Total'] = table.sum()
   graph = df_results
   markdown = "Resultados"
 
@@ -170,7 +172,7 @@ st.line_chart(data=graph,y=graph.columns)
 
 st.markdown(f"## Tabelas - {markdown}")
 
-table.loc['Total'] = table.sum()
+
 st.dataframe(
     table,
     use_container_width=True,
