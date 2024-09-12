@@ -70,13 +70,11 @@ filtro_1,filtro_2,filtro_3= st.columns([1.5,1.5,1],gap='small')
 
 with filtro_1:
   account_filter = st.multiselect(label= 'Selecione a Conta',
-                                  options=df_sem_cirurgia['Account Name'].unique(),
-                                  default=df_sem_cirurgia['Account Name'].unique())
+                                  options=df_sem_cirurgia['Account Name'].unique())
   
 with filtro_2:
   category_filter = st.multiselect(label= 'Selecione a Categoria',
-                                  options=df_sem_cirurgia['Categoria'].unique(),
-                                  default=df_sem_cirurgia['Categoria'].unique())
+                                  options=df_sem_cirurgia['Categoria'].unique())
 
 with filtro_3:
   today = datetime.datetime.now()
@@ -115,6 +113,8 @@ with metric_2:
 
 with metric_3:
     st.metric(label='Custo por Resultado', value= f"R${numerize(custo_por_resultado)}")
+
+st.dataframe(df_filtered)
 
 df_reshaped = df_filtered.pivot_table(
     index="Day", columns="Campaign Name", values="Amount Spent", aggfunc="sum", fill_value=0
