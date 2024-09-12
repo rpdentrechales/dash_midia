@@ -5,6 +5,7 @@ fb_page = st.Page(
     "views/fb_dash.py",
     title="Facebook Dash",
     icon=":material/thumb_up:",
+    default=True,
 )
 google_page = st.Page(
     "views/google_dash.py",
@@ -15,7 +16,6 @@ gsheets_test = st.Page(
     "views/test_gsheets.py",
     title="Teste Gsheets",
     icon=":material/bug_report:",
-    default=True,
 )
 
 
