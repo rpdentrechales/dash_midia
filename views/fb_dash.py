@@ -42,20 +42,17 @@ df_whatsapp = load_aux_dataframe("Auxiliar - Whatsapp","Ad Name")
 df = pd.merge(df,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
 df = df.drop(columns=["Anuncio"])
 df["Results"] = df["Results"].fillna(0)
-df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
 
 df = pd.merge(df,df_unidades,how="left",left_on="Campaign Name",right_on="Campaign Name")
-# df = df.drop(columns=["Anuncio"])
 df["Unidade"] = df["Unidade"].fillna("Sem Categoria")
 df["Região"] = df["Região"].fillna("Sem Categoria")
 
 # Create a mapping dictionary from df1
 whatsapp_map = df_whatsapp.set_index('Ad Name')['Categoria'].to_dict()
-
-# Use map() to categorize ads in df2 based on the mapping
 df.loc[df['Account Name'] == "Campanhas Whatsapp","Categoria"] = df.loc[df['Account Name'] == "Campanhas Whatsapp","Ad Name"].map(whatsapp_map)
 
-# Show the page title and description.
+df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
+
 
 
 st.markdown(
