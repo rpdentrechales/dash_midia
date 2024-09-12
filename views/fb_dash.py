@@ -63,7 +63,7 @@ st.markdown(
 df_sem_cirurgia = df.loc[df["Account Name"] != "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 df_cirurgia = df.loc[df["Account Name"] == "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 
-filtro_1,filtro_2,filtro_3= st.columns([3,3,1],gap='small')
+filtro_1,filtro_2,filtro_3= st.columns([2.5,2.5,1],gap='small')
 
 with filtro_1:
   account_filter = st.multiselect(label = "Selecione a Conta",
@@ -123,29 +123,24 @@ with metric_2:
 with metric_3:
     st.metric(label='Custo por Resultado', value= f"R${numerize(custo_por_resultado)}")
 
-st.dataframe(df_filtered)
+st.markdown("## Gráficos")
 
-df_reshaped = df_filtered.pivot_table(
-    index="Day", columns="Campaign Name", values="Amount Spent", aggfunc="sum", fill_value=0
+visualizao_filter = st.selectbox(label= 'Selecione a Visualização',
+                                options=["Account Name","Campaign Name","Categoria","Unidade","Região"],
+                                default="Account Name")
+
+df_amount_spent = df_filtered.pivot_table(
+    index="Day", columns=visualizao_filter, values="Amount Spent", aggfunc="sum", fill_value=0
 )
-df_reshaped = df_reshaped.sort_values(by="Day", ascending=False)
-
-st.markdown(
-    '<style>.left-title { text-align: center; }</style><h1 class="left-title">Gráficos</h1>',
-    unsafe_allow_html=True
-)
-
-campanha_filter = st.multiselect(label= 'Selecione os campanha',
-                                options=df_reshaped.columns,
-                                default=df_reshaped.columns)
+df_amount_spent = df_amount_spent.sort_values(by="Day", ascending=False)
 
 graph_1,graph_2 = st.columns(2,gap='small')
 
 with graph_1:
-  st.bar_chart(data=df_reshaped,y=campanha_filter)
+  st.line_chart(data=df_amount_spent,y=df_amount_spent.columns)
 
 with graph_2:
-  st.line_chart(data=df_reshaped,y=campanha_filter)
+  st.line_chart(data=df_amount_spent,y=df_amount_spent.columns)
 
 
 st.markdown(
@@ -157,6 +152,6 @@ table = st.columns(1)
 
 with table[0]:
   st.dataframe(
-    df_reshaped,
+    df_amount_spent,
     use_container_width=True,
   )
