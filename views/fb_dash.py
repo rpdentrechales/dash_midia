@@ -63,17 +63,16 @@ st.markdown(
 df_sem_cirurgia = df.loc[df["Account Name"] != "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 df_cirurgia = df.loc[df["Account Name"] == "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 
-filtro_1,filtro_2,filtro_3= st.columns([1.5,1.5,1],gap='small')
+filtro_1,filtro_2= st.columns([2.5,1],gap='small')
 
 with filtro_1:
   account_filter = st.multiselect(label= 'Selecione a Conta',
                                   options=df_sem_cirurgia['Account Name'].unique())
   
-with filtro_2:
   category_filter = st.multiselect(label= 'Selecione a Categoria',
                                   options=df_sem_cirurgia['Categoria'].unique())
 
-with filtro_3:
+with filtro_2:
   today = datetime.datetime.now()
   first_day_month = today.replace(day=1)
 
