@@ -66,10 +66,10 @@ df_cirurgia = df.loc[df["Account Name"] == "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 filtro_1,filtro_2= st.columns([2.5,1],gap='small')
 
 with filtro_1:
-  account_filter = st.multiselect(label= 'Selecione a Conta',
+  account_filter = st.multiselect(placeholder= 'Selecione a Conta',
                                   options=df_sem_cirurgia['Account Name'].unique())
   
-  category_filter = st.multiselect(label= 'Selecione a Categoria',
+  category_filter = st.multiselect(placeholder= 'Selecione a Categoria',
                                   options=df_sem_cirurgia['Categoria'].unique())
 
 with filtro_2:
