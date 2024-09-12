@@ -170,6 +170,7 @@ st.line_chart(data=graph,y=graph.columns)
 
 st.markdown(f"## Tabelas - {markdown}")
 
+table.loc['Total'] = table.sum()
 st.dataframe(
     table,
     use_container_width=True,
