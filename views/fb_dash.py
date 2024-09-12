@@ -144,17 +144,6 @@ df_results = df_filtered.pivot_table(
 df_results.index = pd.to_datetime(df_results.index).strftime('%d/%m/%Y')
 df_results = df_results.sort_values(by="Day", ascending=False)
 
-graph_1,graph_2 = st.columns(2,gap='small')
-
-with graph_1:
-  st.markdown("## Custo (R$)")
-  st.line_chart(data=df_amount_spent,y=df_amount_spent.columns)
-
-with graph_2:
-  st.markdown("## Resultados")
-  st.line_chart(data=df_results,y=df_results.columns)
-
-st.markdown("## Tabelas")
 
 metric_filter = st.selectbox(label= 'Selecione a Métrica',
                                  placeholder = 'Selecione a Métrica',
@@ -164,12 +153,19 @@ metric_filter = st.selectbox(label= 'Selecione a Métrica',
 if (metric_filter == "Amount Spent"):
   table = df_amount_spent
   table = table.applymap(lambda x: f"R${x:,.2f}")
+  markdown = "## Custo (R$)"
 
 elif (metric_filter == "Results"):
   table = df_results
+  markdown = "## Resultados"
 
 else:
   table = None
+
+st.markdown(f"{markdown}")
+st.line_chart(data=df_amount_spent,y=df_amount_spent.columns)
+
+st.markdown(f"## Tabelas - {markdown}")
 
 st.dataframe(
     table,
