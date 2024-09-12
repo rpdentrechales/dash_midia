@@ -16,10 +16,6 @@ def load_main_dataframe(worksheet):
 
   df['Day'] = pd.to_datetime(df['Day'])
 
-  df["Account Name"] = df["Account Name"].astype(str)
-  df["Campaign Name"] = df["Campaign Name"].astype(str)
-  df["Ad Set Name"] = df["Ad Set Name"].astype(str)
-  df["Ad Name"] = df["Ad Name"].astype(str)
   df["Ad ID"] = df["Ad ID"].astype(str)
 
   df.drop_duplicates(subset=["Day","Ad ID"],inplace=True)
@@ -53,12 +49,11 @@ df = pd.merge(df,df_unidades,how="left",left_on="Campaign Name",right_on="Campai
 df["Unidade"] = df["Unidade"].fillna("Sem Categoria")
 df["Região"] = df["Região"].fillna("Sem Categoria")
 
-# df = pd.merge(df,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
-# df = df.drop(columns=["Anuncio"])
-# df["Results"] = df["Results"].fillna(0)
-# df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
+# Create a mapping dictionary from df1
+whatsapp_map = df_whatsapp.set_index('Ad Name')['Categoria'].to_dict()
 
-st.dataframe(df)
+# Use map() to categorize ads in df2 based on the mapping
+df.loc[df['Account Name'] == "Campanhas Whatsapp","Categoria"] = df.loc[df['Account Name'] == "Campanhas Whatsapp","Ad Name"].map(whatsapp_map)
 
 # Show the page title and description.
 
@@ -68,16 +63,22 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("Filtros")
+df_sem_cirurgia = df.query('Account Name != "CA1 - ANUNCIANTE - MAIS CIRURGIA"')
+df_cirurgia = df.query('Account Name == "CA1 - ANUNCIANTE - MAIS CIRURGIA"')
 
-filtro_1,filtro_2,filtro_3= st.columns(3,gap='small')
+filtro_1,filtro_2,filtro_3= st.columns([1.5,1.5,1],gap='small')
 
 with filtro_1:
   account_filter = st.multiselect(label= 'Selecione a Conta',
-                                  options=df['Account Name'].unique(),
-                                  default=df['Account Name'].unique())
-
+                                  options=df_sem_cirurgia['Account Name'].unique(),
+                                  default=df_sem_cirurgia['Account Name'].unique())
+  
 with filtro_2:
+  category_filter = st.multiselect(label= 'Selecione a Categoria',
+                                  options=df_sem_cirurgia['Categoria'].unique(),
+                                  default=df_sem_cirurgia['Categoria'].unique())
+
+with filtro_3:
   today = datetime.datetime.now()
   first_day_month = today.replace(day=1)
 
@@ -89,8 +90,12 @@ with filtro_2:
 
   date_picker = pd.to_datetime(date_picker)
 
-df_filtered = df.loc[df['Account Name'].isin(account_filter)]
-df_filtered = df_filtered.loc[df_filtered['Day'].between(date_picker[0],date_picker[1])]
+df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['Day'].between(date_picker[0],date_picker[1])]
+
+if (account_filter):
+  df_filtered = df_filtered.loc[df_filtered['Account Name'].isin(account_filter)]
+if (category_filter):
+  df_filtered = df_filtered.loc[df_filtered['Categoria'].isin(category_filter)]
 
 total_resultados = float(df_filtered['Results'].sum())
 total_custo = float(df_filtered['Amount Spent'].sum())
