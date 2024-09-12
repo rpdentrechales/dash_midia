@@ -63,17 +63,24 @@ st.markdown(
 df_sem_cirurgia = df.loc[df["Account Name"] != "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 df_cirurgia = df.loc[df["Account Name"] == "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 
-filtro_1,filtro_2,filtro_3= st.columns([2.5,2.5,1],gap='small')
+filtro_1,filtro_2,filtro_3= st.columns([3,3,1],gap='small')
 
-st.write("Filtros")
 with filtro_1:
-  account_filter = st.multiselect(label = "",
+  account_filter = st.multiselect(label = "Selecione a Conta",
                                   placeholder= 'Selecione a Conta',
                                   options=df_sem_cirurgia['Account Name'].unique())
-with filtro_2:
-  category_filter = st.multiselect(label = "",
+  
+  category_filter = st.multiselect(label = "Selecione a Categoria",
                                    placeholder= 'Selecione a Categoria',
-                                   options=df_sem_cirurgia['Categoria'].unique())
+                                   options=df_sem_cirurgia['Categoria'].unique()) 
+with filtro_2:
+  store_filter = st.multiselect(label = "Selecione a Unidade",
+                                   placeholder= 'Selecione a Unidade',
+                                   options=df_sem_cirurgia['Unidade'].unique())
+  
+  region_filter = st.multiselect(label = "Selecione a Região",
+                                   placeholder= 'Selecione a Região',
+                                   options=df_sem_cirurgia['Região'].unique()) 
 with filtro_3:
   today = datetime.datetime.now()
   first_day_month = today.replace(day=1)
@@ -92,6 +99,10 @@ if (account_filter):
   df_filtered = df_filtered.loc[df_filtered['Account Name'].isin(account_filter)]
 if (category_filter):
   df_filtered = df_filtered.loc[df_filtered['Categoria'].isin(category_filter)]
+if (store_filter):
+  df_filtered = df_filtered.loc[df_filtered['Categoria'].isin(store_filter)]
+if (region_filter):
+  df_filtered = df_filtered.loc[df_filtered['Categoria'].isin(region_filter)]
 
 total_resultados = float(df_filtered['Results'].sum())
 total_custo = float(df_filtered['Amount Spent'].sum())
