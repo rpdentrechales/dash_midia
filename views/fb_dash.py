@@ -134,6 +134,7 @@ df_amount_spent = df_filtered.pivot_table(
     index="Day", columns=visualizao_filter, values="Amount Spent", aggfunc="sum", fill_value=0
 )
 df_amount_spent = df_amount_spent.sort_values(by="Day", ascending=False)
+df_amount_spent = df_amount_spent.applymap(lambda x: f"R${x:,.2f}")
 
 df_results = df_filtered.pivot_table(
     index="Day", columns=visualizao_filter, values="Results", aggfunc="sum", fill_value=0
