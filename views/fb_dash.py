@@ -153,17 +153,20 @@ metric_filter = st.selectbox(label= 'Selecione a Métrica',
 if (metric_filter == "Amount Spent"):
   table = df_amount_spent
   table = table.applymap(lambda x: f"R${x:,.2f}")
-  markdown = "## Custo (R$)"
+
+  graph = df_amount_spent
+  markdown = "Custo (R$)"
 
 elif (metric_filter == "Results"):
   table = df_results
-  markdown = "## Resultados"
+  graph = df_results
+  markdown = "Resultados"
 
 else:
   table = None
 
-st.markdown(f"{markdown}")
-st.line_chart(data=df_amount_spent,y=df_amount_spent.columns)
+st.markdown(f"## {markdown}")
+st.line_chart(data=graph,y=graph.columns)
 
 st.markdown(f"## Tabelas - {markdown}")
 
