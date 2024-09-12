@@ -126,8 +126,9 @@ with metric_3:
 st.markdown("## Gráficos")
 
 visualizao_filter = st.selectbox(label= 'Selecione a Visualização',
-                                options=["Account Name","Campaign Name","Categoria","Unidade","Região"],
-                                index=0)
+                                 placeholder = 'Selecione a Visualização',
+                                 options=["Account Name","Campaign Name","Categoria","Unidade","Região"],
+                                 index=0)
 
 df_amount_spent = df_filtered.pivot_table(
     index="Day", columns=visualizao_filter, values="Amount Spent", aggfunc="sum", fill_value=0
