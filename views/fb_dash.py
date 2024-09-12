@@ -135,13 +135,20 @@ df_amount_spent = df_filtered.pivot_table(
 )
 df_amount_spent = df_amount_spent.sort_values(by="Day", ascending=False)
 
+df_results = df_filtered.pivot_table(
+    index="Day", columns=visualizao_filter, values="Results", aggfunc="sum", fill_value=0
+)
+df_results = df_results.sort_values(by="Day", ascending=False)
+
 graph_1,graph_2 = st.columns(2,gap='small')
 
 with graph_1:
+  st.markdown("## Custo")
   st.line_chart(data=df_amount_spent,y=df_amount_spent.columns)
 
 with graph_2:
-  st.line_chart(data=df_amount_spent,y=df_amount_spent.columns)
+  st.markdown("## Resultados")
+  st.line_chart(data=df_results,y=df_results.columns)
 
 
 st.markdown(
