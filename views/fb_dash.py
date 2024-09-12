@@ -63,8 +63,8 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-df_sem_cirurgia = df.query('Account Name != "CA1 - ANUNCIANTE - MAIS CIRURGIA"')
-df_cirurgia = df.query('Account Name == "CA1 - ANUNCIANTE - MAIS CIRURGIA"')
+df_sem_cirurgia = df.loc[df["Account Name"] != "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
+df_cirurgia = df.loc[df["Account Name"] == "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 
 filtro_1,filtro_2,filtro_3= st.columns([1.5,1.5,1],gap='small')
 
