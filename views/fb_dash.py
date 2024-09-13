@@ -146,7 +146,7 @@ df_results = df_results.sort_values(by="Day", ascending=False)
 
 
 df_cost_per_result = df.pivot_table(
-    index='date',columns=visualizao_filter,aggfunc=lambda x: x['cost'].sum() / x['results'].sum(), values=['cost', 'results'])
+    index='date',columns=visualizao_filter,aggfunc=lambda x: x['Amount Spent'].sum() / x['Results'].sum(), values=['Amount Spent', 'Results'])
 df_cost_per_result.index = pd.to_datetime(df_cost_per_result.index).strftime('%d/%m/%Y')
 df_cost_per_result = df_cost_per_result.sort_values(by="Day", ascending=False)
 
