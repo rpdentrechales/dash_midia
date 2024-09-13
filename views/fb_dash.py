@@ -69,18 +69,18 @@ with filtro_1:
   account_filter = st.multiselect(label = "Selecione a Conta",
                                   placeholder= 'Selecione a Conta',
                                   options=df_sem_cirurgia['Account Name'].unique())
-  
+
   category_filter = st.multiselect(label = "Selecione a Categoria",
                                    placeholder= 'Selecione a Categoria',
-                                   options=df_sem_cirurgia['Categoria'].unique()) 
+                                   options=df_sem_cirurgia['Categoria'].unique())
 with filtro_2:
   store_filter = st.multiselect(label = "Selecione a Unidade",
                                    placeholder= 'Selecione a Unidade',
                                    options=df_sem_cirurgia['Unidade'].unique())
-  
+
   region_filter = st.multiselect(label = "Selecione a Região",
                                    placeholder= 'Selecione a Região',
-                                   options=df_sem_cirurgia['Região'].unique()) 
+                                   options=df_sem_cirurgia['Região'].unique())
 with filtro_3:
   today = datetime.datetime.now()
   first_day_month = today.replace(day=1)
@@ -145,12 +145,18 @@ df_results.index = pd.to_datetime(df_results.index).strftime('%d/%m/%Y')
 df_results = df_results.sort_values(by="Day", ascending=False)
 
 
+df_cost_per_result = df.pivot_table(
+    index='date',columns=visualizao_filter,aggfunc=lambda x: x['cost'].sum() / x['results'].sum(), alues=['cost', 'results'])
+df_cost_per_result.index = pd.to_datetime(df_cost_per_result.index).strftime('%d/%m/%Y')
+df_cost_per_result = df_cost_per_result.sort_values(by="Day", ascending=False)
+
 metric_filter = st.selectbox(label= 'Selecione a Métrica',
                                  placeholder = 'Selecione a Métrica',
-                                 options=["Amount Spent","Results"],
+                                 options=["Custo","Resultados","Custo por Resultado"],
                                  index=0)
 
-if (metric_filter == "Amount Spent"):
+
+if (metric_filter == "Custo"):
   table = df_amount_spent.copy()
   table.loc['Total'] = table.sum()
   table = table.applymap(lambda x: f"R${x:,.2f}")
@@ -158,12 +164,18 @@ if (metric_filter == "Amount Spent"):
   graph = df_amount_spent
   markdown = "Custo (R$)"
 
-elif (metric_filter == "Results"):
+elif (metric_filter == "Resultados"):
   table = df_results.copy()
   table.loc['Total'] = table.sum()
 
   graph = df_results
   markdown = "Resultados"
+
+elif (metric_filter == "Custo por Resultado"):
+  table = df_cost_per_result.copy()
+
+  graph = df_cost_per_result
+  markdown = "Custo por Resultado"
 
 else:
   table = None
