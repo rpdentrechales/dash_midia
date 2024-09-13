@@ -53,8 +53,6 @@ df.loc[df['Account Name'] == "Campanhas Whatsapp","Categoria"] = df.loc[df['Acco
 
 df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
 
-
-
 st.markdown(
     '<style>.centered-title { text-align: center; }</style><h1 class="centered-title">Dash Mídia Facebook</h1>',
     unsafe_allow_html=True
@@ -100,9 +98,9 @@ if (account_filter):
 if (category_filter):
   df_filtered = df_filtered.loc[df_filtered['Categoria'].isin(category_filter)]
 if (store_filter):
-  df_filtered = df_filtered.loc[df_filtered['Categoria'].isin(store_filter)]
+  df_filtered = df_filtered.loc[df_filtered['Unidade'].isin(store_filter)]
 if (region_filter):
-  df_filtered = df_filtered.loc[df_filtered['Categoria'].isin(region_filter)]
+  df_filtered = df_filtered.loc[df_filtered['Região'].isin(region_filter)]
 
 total_resultados = float(df_filtered['Results'].sum())
 total_custo = float(df_filtered['Amount Spent'].sum())
