@@ -144,15 +144,9 @@ df_results = df_filtered.pivot_table(
 df_results.index = pd.to_datetime(df_results.index).strftime('%d/%m/%Y')
 df_results = df_results.sort_values(by="Day", ascending=False)
 
-
-df_cost_per_result = df.pivot_table(
-    index='Day',columns=visualizao_filter,aggfunc=lambda x: x['Amount Spent'].sum() / x['Results'].sum(), values=['Amount Spent', 'Results'])
-df_cost_per_result.index = pd.to_datetime(df_cost_per_result.index).strftime('%d/%m/%Y')
-df_cost_per_result = df_cost_per_result.sort_values(by="Day", ascending=False)
-
 metric_filter = st.selectbox(label= 'Selecione a Métrica',
                                  placeholder = 'Selecione a Métrica',
-                                 options=["Custo","Resultados","Custo por Resultado"],
+                                 options=["Custo","Resultados"],
                                  index=0)
 
 
@@ -170,12 +164,6 @@ elif (metric_filter == "Resultados"):
 
   graph = df_results
   markdown = "Resultados"
-
-elif (metric_filter == "Custo por Resultado"):
-  table = df_cost_per_result.copy()
-
-  graph = df_cost_per_result
-  markdown = "Custo por Resultado"
 
 else:
   table = None
