@@ -77,11 +77,18 @@ if (store_filter):
 
 categoria_groupby = df_filtered.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
 
+categoria_groupby["CPL"] = categoria_groupby["Amount Spent"]/categoria_groupby["Results"]
+
 st.dataframe(
     categoria_groupby,
     use_container_width=True,
     column_config={
         "Amount Spent": st.column_config.NumberColumn(
+            "Custo",
+            format="R$ %d",
+            width="small"
+        ),
+        "CPL": st.column_config.NumberColumn(
             "Custo",
             format="R$ %d",
             width="small"
