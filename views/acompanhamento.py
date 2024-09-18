@@ -89,6 +89,10 @@ st.dataframe(
         "Categoria": st.column_config.Column(
             "Categoria",
             width="large"
-        )
+        ),
+        "Results": st.column_config.NumberColumn(
+            "Custo",
+            width="small"
+        ),
     }
   )
