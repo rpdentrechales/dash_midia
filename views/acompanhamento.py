@@ -84,6 +84,11 @@ st.dataframe(
         "Amount Spent": st.column_config.NumberColumn(
             "Custo",
             format="R$ %d",
+            width="small"
+        ),
+        "Categoria": st.column_config.Column(
+            "Categoria",
+            width="large"
         )
     }
   )
