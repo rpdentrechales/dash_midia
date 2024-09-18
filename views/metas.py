@@ -21,7 +21,6 @@ current_date = datetime.now()
 periods = pd.period_range(start=current_date - pd.DateOffset(months=11), 
                           end=current_date, freq='M')
 
-st.write(today)
 
 periods
 
