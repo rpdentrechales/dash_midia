@@ -17,6 +17,8 @@ st.markdown("# Cadastrar Metas")
 
 df_metas = load_dataframe("aux - Configurar metas",)
 
+df_metas["month"] = df_metas["month"].dt.to_period("M")
+
 current_date = datetime.now()
 periods = pd.period_range(start=current_date - pd.DateOffset(months=11), 
                           end=current_date, freq='M')
