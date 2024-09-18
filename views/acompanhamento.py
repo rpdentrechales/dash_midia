@@ -83,7 +83,7 @@ st.dataframe(
     column_config={
         "Amount Spent": st.column_config.NumberColumn(
             "Custo",
-            format="R$%d",
+            format="R$ %d",
         )
     }
   )
