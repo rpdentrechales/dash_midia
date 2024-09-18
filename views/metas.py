@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from streamlit_gsheets import GSheetsConnection
-import datetime
+from datetime import datetime
 
 st.set_page_config(page_title="Pró-Corpo - COnfigurar Metas", page_icon="💎",layout="wide")
 
@@ -17,9 +17,11 @@ st.markdown("# Cadastrar Metas")
 
 df_metas = load_dataframe("aux - Configurar metas",)
 
-today = datetime.datetime.now()
-today = today.strftime("%d/%m/%Y")
+periods = pd.period_range(start=current_date - pd.DateOffset(months=11), 
+                          end=current_date, freq='M')
 
 st.write(today)
+
+periods
 
 df_metas
