@@ -98,7 +98,7 @@ st.dataframe(
             width="large"
         ),
         "Results": st.column_config.NumberColumn(
-            "Custo",
+            "Resultados",
             width="small"
         ),
     }
