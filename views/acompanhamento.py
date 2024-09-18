@@ -85,12 +85,12 @@ st.dataframe(
     column_config={
         "Amount Spent": st.column_config.NumberColumn(
             "Custo",
-            format="R$ %d.%d%d",
+            format="R$ %.2f",
             width="small"
         ),
         "CPL": st.column_config.NumberColumn(
             "Custo",
-            format="R$ %d.%d%d",
+            format="R$ %.2f",
             width="small"
         ),
         "Categoria": st.column_config.Column(
