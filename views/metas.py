@@ -17,6 +17,7 @@ st.markdown("# Cadastrar Metas")
 
 df_metas = load_dataframe("aux - Configurar metas",)
 
+df_metas["month"] = pd.to_datetime(df_metas["month"])
 df_metas["month"] = df_metas["month"].dt.to_period("M")
 
 current_date = datetime.now()
