@@ -28,5 +28,13 @@ period_filter = st.selectbox("Selecione o Mês",periods)
 
 filtered_metas = df_metas.loc[df_metas["month"] == period_filter]
 
-edited_df = st.data_editor(filtered_metas)
+edited_df = st.data_editor(filtered_metas,
+                           column_config={
+                                "command": "Streamlit Command",
+                                "meta": st.column_config.NumberColumn(
+                                    "Meta",
+                                    min_value=0,
+                                    format="R$ $.2f",
+                                )}
+                          )
 filtered_metas
