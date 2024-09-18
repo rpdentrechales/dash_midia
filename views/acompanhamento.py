@@ -75,11 +75,9 @@ if (month_filter):
 if (store_filter):
   df_filtered = df_filtered.loc[df_filtered['Unidade'] == store_filter]
 
-df_filtered.columns
-
-categoria_groupby = df_filtered.groupby(["Categoria"]).agg({"Results":"sum","Results":"sum"})
+categoria_groupby = df_filtered.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
 
 st.dataframe(
-    df_filtered,
+    categoria_groupby,
     use_container_width=True
   )
