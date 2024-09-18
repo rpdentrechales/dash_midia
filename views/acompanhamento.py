@@ -89,7 +89,7 @@ st.dataframe(
             width="small"
         ),
         "CPL": st.column_config.NumberColumn(
-            "Custo",
+            "CPL",
             format="R$ %.2f",
             width="small"
         ),
