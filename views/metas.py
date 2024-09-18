@@ -28,4 +28,5 @@ period_filter = st.selectbox("Selecione o Mês",periods)
 
 filtered_metas = df_metas.loc[df_metas["month"] == period_filter]
 
+edited_df = st.data_editor(filtered_metas)
 filtered_metas
