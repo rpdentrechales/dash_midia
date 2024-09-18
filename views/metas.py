@@ -3,7 +3,7 @@ import pandas as pd
 from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 
-st.set_page_config(page_title="Pró-Corpo - COnfigurar Metas", page_icon="💎",layout="wide")
+st.set_page_config(page_title="Pró-Corpo - Configurar Metas", page_icon="💎",layout="wide")
 
 @st.cache_data
 def load_dataframe(worksheet):
@@ -21,7 +21,7 @@ df_metas["month"] = pd.to_datetime(df_metas["month"])
 df_metas["month"] = df_metas["month"].dt.to_period("M")
 
 current_date = datetime.now()
-periods = pd.period_range(start=current_date - pd.DateOffset(months=11), 
+periods = pd.period_range(start=current_date - pd.DateOffset(months=11),
                           end=current_date, freq='M')
 
 period_filter = st.selectbox("Selecione o Mês",periods)
