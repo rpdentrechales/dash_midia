@@ -9,7 +9,6 @@ def load_dataframe(worksheet):
 
   conn = st.connection("gsheets", type=GSheetsConnection)
   df = conn.read(worksheet=worksheet)
-  df = df.drop_duplicates(subset=duplicates_subset)
 
   return df
 
