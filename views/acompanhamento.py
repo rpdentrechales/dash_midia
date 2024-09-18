@@ -79,5 +79,11 @@ categoria_groupby = df_filtered.groupby(["Categoria"]).agg({"Results":"sum","Amo
 
 st.dataframe(
     categoria_groupby,
-    use_container_width=True
+    use_container_width=True,
+    column_config={
+        "Amount Spent": st.column_config.NumberColumn(
+            "Custo",
+            format="R$%d",
+        )
+    }
   )
