@@ -21,7 +21,8 @@ current_date = datetime.now()
 periods = pd.period_range(start=current_date - pd.DateOffset(months=11), 
                           end=current_date, freq='M')
 
+period_filter = st.selectbox("Selecione o Mês",periods)
 
-periods
+filtered_metas = df_metas.loc[df_metas["month"] == period_filter]
 
-df_metas
+filtered_metas
