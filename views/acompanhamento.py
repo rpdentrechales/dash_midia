@@ -53,7 +53,7 @@ df.loc[df['Account Name'] == "Campanhas Whatsapp","Categoria"] = df.loc[df['Acco
 df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
 df["month"] = df["Day"].dt.to_period("M")
 
-st.markdown("#Acompanhamento de Mídia")
+st.markdown("# Acompanhamento de Mídia")
 
 df_sem_cirurgia = df.loc[df["Account Name"] != "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 df_cirurgia = df.loc[df["Account Name"] == "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
