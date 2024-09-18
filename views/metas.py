@@ -12,6 +12,8 @@ def load_dataframe(worksheet):
 
   return df
 
+st.markdown("# Cadastrar Metas")
+
 df_metas = load_dataframe("aux - Configurar metas",)
 
 df_metas
