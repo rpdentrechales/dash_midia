@@ -73,7 +73,7 @@ if (month_filter):
   df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['month'] == month_filter]
 
 if (store_filter):
-  df_filtered = df_filtered.loc[df_filtered['Unidade'].isin(store_filter)]
+  df_filtered = df_filtered.loc[df_filtered['Unidade'] == store_filter]
 
 st.dataframe(
     df_filtered,
