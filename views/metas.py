@@ -15,6 +15,12 @@ def load_dataframe(worksheet):
 
 st.markdown("# Cadastrar Metas")
 
+df_categorias = load_dataframe("Auxiliar - Categorias")
+
+categorias = df_categorias["Categoria"].unique()
+
+st.write(categorias)
+
 df_metas = load_dataframe("aux - Configurar metas",)
 
 df_metas["month"] = pd.to_datetime(df_metas["month"])
