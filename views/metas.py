@@ -5,6 +5,7 @@ from datetime import datetime
 
 st.set_page_config(page_title="Pró-Corpo - Configurar Metas", page_icon="💎",layout="wide")
 
+@st.cache_data
 def load_dataframe(worksheet):
 
   conn = st.connection("gsheets", type=GSheetsConnection)
@@ -19,7 +20,8 @@ df_categorias = load_dataframe("Auxiliar - Categorias")
 categorias = df_categorias["Categoria"].unique()
 categorias = list(categorias)
 
-df_metas = load_dataframe("aux - Configurar metas")
+if not(isinstance(df_metas, pd.DataFrame)):
+  df_metas = load_dataframe("aux - Configurar metas")
 
 df_metas["month"] = pd.to_datetime(df_metas["month"])
 df_metas["month"] = df_metas["month"].dt.to_period("M")
@@ -40,6 +42,7 @@ with filtro_2:
   period_filter = st.selectbox("Selecione o Mês",combined_periods)
 
 filtered_metas = df_metas.loc[df_metas["month"] == period_filter]
+filtered_metas = df_metas.loc[df_metas["plataforma"] == plataforma_filter]
 
 if filtered_metas.shape[0] == 0:
   filtered_metas = pd.DataFrame(columns=["plataforma","month","categoria","meta"])
