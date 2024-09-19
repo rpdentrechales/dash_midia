@@ -13,12 +13,6 @@ def load_dataframe(worksheet):
 
   return df
 
-
-def upload_dataframe(new_df,worksheet):
-
-  conn = st.connection("gsheets", type=GSheetsConnection)
-  conn.update(data=df,worksheet=worksheet)
-
 st.markdown("# Cadastrar Metas")
 
 df_metas = load_dataframe("aux - Configurar metas",)
@@ -41,8 +35,6 @@ edited_df = st.data_editor(filtered_metas,
                                     "Meta",
                                     min_value=0,
                                     format="R$ %.2f",
-                                )},
-                           on_change=upload_dataframe,
-                           args=(edited_df,"aux - Configurar metas",)
+                                )}
                           )
-filtered_metas
+edited_df
