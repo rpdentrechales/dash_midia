@@ -20,7 +20,7 @@ df_categorias = load_dataframe("Auxiliar - Categorias")
 categorias = df_categorias["Categoria"].unique()
 categorias = list(categorias)
 
-df_metas = load_dataframe("aux - Configurar metas",)
+df_metas = load_dataframe("aux - Configurar metas")
 
 df_metas["month"] = pd.to_datetime(df_metas["month"])
 df_metas["month"] = df_metas["month"].dt.to_period("M")
@@ -59,8 +59,9 @@ edited_df = st.data_editor(filtered_metas,
                            hide_index=True
                           )
 
-def upload_changes(df_original,df_edited):
-
+def upload_changes(df_edited):
+  
+  df_original = load_dataframe("aux - Configurar metas")
   df_to_upload = pd.concat([df_original,df_edited])
   df_to_upload = df_to_upload.drop_duplicates(subset=["plataforma","month","categoria"],keep="last")
 
