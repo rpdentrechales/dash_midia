@@ -21,7 +21,6 @@ categorias = df_categorias["Categoria"].unique()
 categorias = list(categorias)
 
 df_metas = load_dataframe("aux - Configurar metas",)
-df_metas
 
 df_metas["month"] = pd.to_datetime(df_metas["month"])
 df_metas["month"] = df_metas["month"].dt.to_period("M")
@@ -39,7 +38,9 @@ with filtro_2:
 
 filtered_metas = df_metas.loc[df_metas["month"] == period_filter]
 
-if filtered_metas == None:
+st.write(filtered_metas.shape)
+
+if filtered_metas.shape == None:
   filtered_metas = pd.DataFrame(columns=["plafaforma","month","categoria","meta"])
   filtered_metas["categoria"] = categorias
   filtered_metas["plataforma"] = plataforma_filter
