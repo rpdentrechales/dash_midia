@@ -39,11 +39,12 @@ edited_df = st.data_editor(filtered_metas,
                            hide_index=True
                           )
 
+def upload_changes(df_original,df_edited):
 
+  df_to_upload = pd.concat([df_original,df_edited])
+  df_to_upload = df_to_upload.drop_duplicates(subset=["plafaforma","month","categoria"],keep="last")
 
-df_metas = pd.concat([df_metas,edited_df])
-df_metas = df_metas.drop_duplicates(subset=["plafaforma","month","categoria"],keep="last")
-df_metas
+  conn = st.connection("gsheets", type=GSheetsConnection)
+  conn.update(data=df_to_upload,worksheet="aux - Configurar metas")
 
-conn = st.connection("gsheets", type=GSheetsConnection)
-conn.update(data=df_metas,worksheet="aux - Configurar metas")
+upload_changes(df_metas,edited_df)
