@@ -46,9 +46,9 @@ def upload_changes(df_original,df_edited):
 
   conn = st.connection("gsheets", type=GSheetsConnection)
   conn.update(data=df_to_upload,worksheet="aux - Configurar metas")
-  return df_to_upload
+  st.session_state["callback_result"] = df_to_upload
 
-new_df = upload_changes(df_metas,edited_df)
+st.button("Salvar modificações",on_click=upload_changes,args=(df_metas,edited_df))
 
-if new_df is not None:
-  meta_df = new_df
+if "callback_result" in st.session_state:
+  df_metas = st.session_state["callback_result"]
