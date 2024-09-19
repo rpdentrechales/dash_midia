@@ -67,7 +67,7 @@ def upload_changes(df_original,df_edited):
 
 if st.button("Salvar modificações",on_click=upload_changes,args=(df_metas,edited_df)):
   st.balloons()
-  st.sucess("Modificações salvas com sucesso")
+  st.success("Modificações salvas com sucesso")
   st.error(st.session_state["callback_response"])
 
 
