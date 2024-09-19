@@ -79,4 +79,4 @@ if st.button("Salvar modificações",on_click=upload_changes,args=(edited_df)):
     st.balloons()
     st.success("Modificações salvas com sucesso")
   else:
-      st.error("Erro: Alterações não foram salvas")
+    st.error("Erro: Alterações não foram salvas")
