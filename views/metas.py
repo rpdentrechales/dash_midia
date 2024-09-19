@@ -40,7 +40,7 @@ edited_df = st.data_editor(filtered_metas,
 
 
 
-df_metas = pd.concat([edited_df,df_metas])
+df_metas = pd.concat([df_metas,edited_df])
 df_metas = df_metas.drop_duplicates(subset=["plafaforma","month","categoria"],keep="last")
 df_metas
 
