@@ -58,9 +58,8 @@ edited_df = st.data_editor(filtered_metas,
                            hide_index=True
                           )
 
-def upload_changes(df_edited):
+def upload_changes(df_original,df_edited):
 
-  df_original = load_dataframe("aux - Configurar metas")
   df_to_upload = pd.concat([df_original,df_edited])
   df_to_upload = df_to_upload.drop_duplicates(subset=["plataforma","month","categoria"],keep="last")
 
@@ -72,7 +71,7 @@ def upload_changes(df_edited):
     response = "Erro"
   
 
-if st.button("Salvar modificações",on_click=upload_changes,args=(edited_df)):
+if st.button("Salvar modificações",on_click=upload_changes,args=(df_metas,edited_df)):
   if "callback_result" in st.session_state:
     df_metas = st.session_state["callback_result"]
     st.balloons()
