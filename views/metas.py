@@ -22,7 +22,7 @@ categorias = list(categorias)
 
 df_metas = load_dataframe("aux - Configurar metas",)
 
-if df_metas["month"]:
+if len(df_metas["month"]) > 0:
   df_metas["month"] = pd.to_datetime(df_metas["month"])
   df_metas["month"] = df_metas["month"].dt.to_period("M")
 
