@@ -46,5 +46,6 @@ def upload_changes(df_original,df_edited):
 
   conn = st.connection("gsheets", type=GSheetsConnection)
   conn.update(data=df_to_upload,worksheet="aux - Configurar metas")
+  return df_to_upload
 
-upload_changes(df_metas,edited_df)
+df_metas = upload_changes(df_metas,edited_df)
