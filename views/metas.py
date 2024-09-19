@@ -18,21 +18,32 @@ st.markdown("# Cadastrar Metas")
 df_categorias = load_dataframe("Auxiliar - Categorias")
 
 categorias = df_categorias["Categoria"].unique()
-
-st.write(categorias)
+categorias = list(categorias)
 
 df_metas = load_dataframe("aux - Configurar metas",)
 
-df_metas["month"] = pd.to_datetime(df_metas["month"])
-df_metas["month"] = df_metas["month"].dt.to_period("M")
+if df_metas["month"]:
+  df_metas["month"] = pd.to_datetime(df_metas["month"])
+  df_metas["month"] = df_metas["month"].dt.to_period("M")
 
 current_date = datetime.now()
 periods = pd.period_range(start=current_date - pd.DateOffset(months=11),
                           end=current_date, freq='M')
 
-period_filter = st.selectbox("Selecione o Mês",periods)
+filtro_1, filtro_2 = st.columns([2,1])
+
+with filtro_1:
+  plataforma_filter = st.selectbox("Selecione a Plataforma",["Facebook","Google Ads"])
+with filtro_2:
+  period_filter = st.selectbox("Selecione o Mês",periods)
 
 filtered_metas = df_metas.loc[df_metas["month"] == period_filter]
+
+if filtered_metas == None:
+  filtered_metas = pd.DataFrame(columns=["plafaforma","month","categoria","meta"])
+  filtered_metas["categoria"] = categorias
+  filtered_metas["plataforma"] = plataforma_filter
+  filtered_metas["month"] = period_filter
 
 edited_df = st.data_editor(filtered_metas,
                            column_config={
