@@ -37,4 +37,8 @@ edited_df = st.data_editor(filtered_metas,
                                     format="R$ %.2f",
                                 )}
                           )
-edited_df
+df_metas = pd.concat(edited_df,df_metas)
+df_metas.drop_duplicates(subset=["plataforma","month","categoria"],keep="last")
+
+conn = st.connection("gsheets", type=GSheetsConnection)
+conn.update(data=df_metas,worksheet="aux - Configurar metas")
