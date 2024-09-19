@@ -78,3 +78,5 @@ if st.button("Salvar modificações",on_click=upload_changes,args=(df_metas,edit
     st.success("Modificações salvas com sucesso")
   else:
     st.error("Erro: Alterações não foram salvas")
+
+st.dataframe(df_metas)
