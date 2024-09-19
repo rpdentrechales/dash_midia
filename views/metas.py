@@ -20,8 +20,7 @@ df_categorias = load_dataframe("Auxiliar - Categorias")
 categorias = df_categorias["Categoria"].unique()
 categorias = list(categorias)
 
-if not(isinstance(df_metas, pd.DataFrame)):
-  df_metas = load_dataframe("aux - Configurar metas")
+df_metas = load_dataframe("aux - Configurar metas")
 
 df_metas["month"] = pd.to_datetime(df_metas["month"])
 df_metas["month"] = df_metas["month"].dt.to_period("M")
