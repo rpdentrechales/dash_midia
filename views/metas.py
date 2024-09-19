@@ -63,6 +63,7 @@ def upload_changes(df_original,df_edited):
   conn = st.connection("gsheets", type=GSheetsConnection)
   response = conn.update(data=df_to_upload,worksheet="aux - Configurar metas")
   st.session_state["callback_result"] = df_to_upload
+  st.balloons()
   st.write(response)
   st.warning("Modificações salvas com sucesso")
 
