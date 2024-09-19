@@ -81,4 +81,6 @@ if st.button("Salvar modificações",on_click=upload_changes,args=(df_metas,edit
   else:
     st.error("Erro: Alterações não foram salvas")
 
+df_metas = st.session_state["callback_result"]
 st.dataframe(st.session_state["callback_result"])
+st.dataframe(df_metas)
