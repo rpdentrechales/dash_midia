@@ -58,7 +58,7 @@ edited_df = st.data_editor(filtered_metas,
 def upload_changes(df_original,df_edited):
 
   df_to_upload = pd.concat([df_original,df_edited])
-  df_to_upload = df_to_upload.drop_duplicates(subset=["plafaforma","month","categoria"],keep="last")
+  df_to_upload = df_to_upload.drop_duplicates(subset=["plataforma","month","categoria"],keep="last")
 
   conn = st.connection("gsheets", type=GSheetsConnection)
   conn.update(data=df_to_upload,worksheet="aux - Configurar metas")
