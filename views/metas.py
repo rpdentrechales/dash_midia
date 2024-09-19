@@ -39,7 +39,7 @@ with filtro_2:
 filtered_metas = df_metas.loc[df_metas["month"] == period_filter]
 
 if filtered_metas.shape[0] == 0:
-  filtered_metas = pd.DataFrame(columns=["plafaforma","month","categoria","meta"])
+  filtered_metas = pd.DataFrame(columns=["plataforma","month","categoria","meta"])
   filtered_metas["categoria"] = categorias
   filtered_metas["plataforma"] = plataforma_filter
   filtered_metas["month"] = period_filter
