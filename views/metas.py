@@ -35,7 +35,8 @@ edited_df = st.data_editor(filtered_metas,
                                     "Meta",
                                     min_value=0,
                                     format="R$ %.2f",
-                                )}
+                                )},
+                           hide_index=True
                           )
 
 
