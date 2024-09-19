@@ -48,4 +48,7 @@ def upload_changes(df_original,df_edited):
   conn.update(data=df_to_upload,worksheet="aux - Configurar metas")
   return df_to_upload
 
-df_metas = upload_changes(df_metas,edited_df)
+new_df = upload_changes(df_metas,edited_df)
+
+if new_df is not None:
+  meta_df = new_df
