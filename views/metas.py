@@ -26,7 +26,7 @@ categorias = list(categorias)
 st.write("df_metas teste")
 st.dataframe(df_metas)
 
-df_metas["month"] = pd.to_datetime(df_metas["month"])
+df_metas["month"] = pd.to_timestamp(df_metas["month"])
 df_metas["month"] = df_metas["month"].dt.to_period("M")
 
 current_date = datetime.now()
