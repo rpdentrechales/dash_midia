@@ -5,6 +5,7 @@ from datetime import datetime
 
 st.set_page_config(page_title="Pró-Corpo - Configurar Metas", page_icon="💎",layout="wide")
 
+@st.cache_data()
 def load_dataframe(worksheet):
 
   conn = st.connection("gsheets", type=GSheetsConnection)
@@ -14,7 +15,10 @@ def load_dataframe(worksheet):
 
 st.markdown("# Cadastrar Metas")
 
-df_categorias = load_dataframe("Auxiliar - Categorias")
+st.session_state["main_df"] = load_dataframe("Auxiliar - Categorias")
+
+df_metas = st.session_state["main_df"]
+filtered_metas = st.session_state["main_df"]
 
 categorias = df_categorias["Categoria"].unique()
 categorias = list(categorias)
@@ -76,7 +80,7 @@ def upload_changes(df_original,df_edited):
 
 if st.button("Salvar modificações",on_click=upload_changes,args=(df_metas,edited_df)):
   if "callback_result" in st.session_state:
-    df_metas = st.session_state["callback_result"]
+    st.session_state["main_df"]  = st.session_state["callback_result"]
     st.balloons()
     st.success("Modificações salvas com sucesso")
 
