@@ -15,10 +15,9 @@ def load_dataframe(worksheet):
 
 st.markdown("# Cadastrar Metas")
 
-st.session_state["main_df"] = load_dataframe("Auxiliar - Categorias")
+st.session_state.setdefault("main_df", load_dataframe("Auxiliar - Categorias"))
 
 df_metas = st.session_state["main_df"]
-filtered_metas = st.session_state["main_df"]
 
 df_categorias = load_dataframe("Auxiliar - Categorias")
 categorias = df_categorias["Categoria"].unique()
