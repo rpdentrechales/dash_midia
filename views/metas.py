@@ -81,6 +81,6 @@ if st.button("Salvar modificações",on_click=upload_changes,args=(df_metas,edit
     df_metas = st.session_state["callback_result"]
     st.balloons()
     st.success("Modificações salvas com sucesso")
-    st.rerun()
+
   else:
     st.error("Erro: Alterações não foram salvas")
