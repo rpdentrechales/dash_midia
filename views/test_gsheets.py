@@ -16,5 +16,5 @@ if st.button("Change"):
     st.session_state["text"] = "Aquilo Outro"
     st.session_state["count"] += 1
 
-st.write(texto)
+st.write(st.session_state["text"])
 
