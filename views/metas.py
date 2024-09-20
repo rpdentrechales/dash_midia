@@ -24,7 +24,7 @@ categorias = df_categorias["Categoria"].unique()
 categorias = list(categorias)
 
 st.write("df_metas teste")
-st.dataframe(df_metas)
+st.write(df_metas["month"])
 
 df_metas["month"] = pd.to_datetime(df_metas["month"], format='%Y-%m')
 df_metas["month"] = df_metas["month"].dt.to_period("M")
