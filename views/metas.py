@@ -74,14 +74,13 @@ def upload_changes(df_original,df_edited):
   conn = st.connection("gsheets", type=GSheetsConnection)
   try:
     response = conn.update(data=df_to_upload,worksheet="aux - Configurar metas")
-    st.session_state["callback_result"] = response
+    st.session_state["main_df"]  = df_to_upload
   except:
     response = "Erro"
 
 
 if st.button("Salvar modificações",on_click=upload_changes,args=(df_metas,edited_df)):
   if "callback_result" in st.session_state:
-    st.session_state["main_df"]  = st.session_state["callback_result"]
     st.balloons()
     st.success("Modificações salvas com sucesso")
 

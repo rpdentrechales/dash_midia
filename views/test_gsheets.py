@@ -1,9 +1,18 @@
 
 import streamlit as st
 
-container = st.container()
+st.session_state["count"] = 0
+texto = st.session_state["text"] = "ISSO"
 
-if st.button("Baz"):
-    st.session_state.value = "Baz"
+st.write(texto)
 
-container.header(st.session_state.value)
+if st.button("Change"):
+  if st.session_state["count"] % 2 == 0:
+    st.session_state["text"] = "AQUILO"
+    st.session_state["count"] += 1
+  elif st.session_state["count"] % 2 == 1:
+    st.session_state["text"] = "Aquilo Outro"
+    st.session_state["count"] += 1
+
+
+
