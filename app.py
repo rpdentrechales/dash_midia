@@ -24,7 +24,7 @@ google_page = st.Page(
 )
 gsheets_test = st.Page(
     "views/test_gsheets.py",
-    title="Teste Gsheets",
+    title="Testes",
     icon=":material/bug_report:",
 )
 
@@ -36,7 +36,7 @@ gsheets_test = st.Page(
 pg = st.navigation(
     {
         "Relatórios": [fb_page, acompanhamento_page],
-        "Configurações": [metas_page]
+        "Configurações": [metas_page,gsheets_test]
     }
 )
 
