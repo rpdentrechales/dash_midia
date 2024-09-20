@@ -40,8 +40,10 @@ with filtro_1:
 with filtro_2:
   period_filter = st.selectbox("Selecione o Mês",combined_periods)
 
-filtered_metas = df_metas.loc[df_metas["month"] == period_filter]
-filtered_metas = df_metas.loc[df_metas["plataforma"] == plataforma_filter]
+filtered_metas = df_metas.loc[
+    (df_metas["month"] == period_filter) &
+    (df_metas["plataforma"] == plataforma_filter)
+]
 
 if filtered_metas.shape[0] == 0:
   filtered_metas = pd.DataFrame(columns=["plataforma","month","categoria","meta"])
@@ -71,16 +73,14 @@ def upload_changes(df_original,df_edited):
     st.session_state["callback_result"] = response
   except:
     response = "Erro"
-  
+
 
 if st.button("Salvar modificações",on_click=upload_changes,args=(df_metas,edited_df)):
   if "callback_result" in st.session_state:
+    cache_data.clear()
     df_metas = st.session_state["callback_result"]
     st.balloons()
     st.success("Modificações salvas com sucesso")
+    st.rerun()
   else:
     st.error("Erro: Alterações não foram salvas")
-
-df_metas = st.session_state["callback_result"]
-st.dataframe(st.session_state["callback_result"])
-st.dataframe(df_metas)
