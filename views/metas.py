@@ -23,8 +23,6 @@ df_categorias = load_dataframe("Auxiliar - Categorias")
 categorias = df_categorias["Categoria"].unique()
 categorias = list(categorias)
 
-st.write("df_metas teste")
-
 df_metas["month"] = pd.PeriodIndex(df_metas["month"], freq="M")
 
 current_date = datetime.now()
@@ -55,12 +53,20 @@ if filtered_metas.shape[0] == 0:
 
 edited_df = st.data_editor(filtered_metas,
                            column_config={
-                                "command": "Streamlit Command",
                                 "meta": st.column_config.NumberColumn(
                                     "Meta",
                                     min_value=0,
-                                    format="R$ %.2f",
-                                )},
+                                    format="R$ %.2f"),
+                                "plataforma": st.column_config.Column(
+                                    "Plataforma",
+                                    disabled = True),
+                                "month": st.column_config.Column(
+                                    "Mês",
+                                    disabled = True),
+                                "categoria": st.column_config.Column(
+                                    "Categoria",
+                                    disabled = True)
+                                },
                            hide_index=True
                           )
 
