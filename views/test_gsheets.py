@@ -2,7 +2,9 @@
 import streamlit as st
 
 st.session_state["count"] = 0
-texto = st.session_state["text"] = "ISSO"
+st.session_state["text"] = "ISSO"
+
+texto = st.session_state["text"]
 
 st.write(texto)
 
@@ -14,5 +16,5 @@ if st.button("Change"):
     st.session_state["text"] = "Aquilo Outro"
     st.session_state["count"] += 1
 
-
+st.write(texto)
 
