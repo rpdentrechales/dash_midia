@@ -33,15 +33,12 @@ combined_periods = pd.concat([df_metas["month"], pd.Series(periods)])
 combined_periods = combined_periods.drop_duplicates().sort_values(ascending=False)
 combined_periods = combined_periods.reset_index(drop=True)
 
-current_month_str = pd.Period(current_date, freq='M')
-current_month_index = combined_periods.get_loc(current_month_str)
-
 filtro_1, filtro_2 = st.columns([2,1])
 
 with filtro_1:
   plataforma_filter = st.selectbox("Selecione a Plataforma",["Facebook","Google Ads"])
 with filtro_2:
-  period_filter = st.selectbox("Selecione o Mês", combined_periods, index=current_month_index)
+  period_filter = st.selectbox("Selecione o Mês", combined_periods, index=1)
 
 
 display_1,display_2 = st.columns([2,1])
