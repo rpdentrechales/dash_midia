@@ -40,35 +40,42 @@ with filtro_1:
 with filtro_2:
   period_filter = st.selectbox("Selecione o Mês",combined_periods)
 
-filtered_metas = df_metas.loc[
-    (df_metas["month"] == period_filter) &
-    (df_metas["plataforma"] == plataforma_filter)
-]
 
-if filtered_metas.shape[0] == 0:
-  filtered_metas = pd.DataFrame(columns=["plataforma","month","categoria","meta"])
-  filtered_metas["categoria"] = categorias
-  filtered_metas["plataforma"] = plataforma_filter
-  filtered_metas["month"] = period_filter
+display_1,display_2 = st.columns([2,1])
 
-edited_df = st.data_editor(filtered_metas,
-                           column_config={
-                                "meta": st.column_config.NumberColumn(
-                                    "Meta",
-                                    min_value=0,
-                                    format="%d %%"),
-                                "plataforma": st.column_config.Column(
-                                    "Plataforma",
-                                    disabled = True),
-                                "month": st.column_config.Column(
-                                    "Mês",
-                                    disabled = True),
-                                "categoria": st.column_config.Column(
-                                    "Categoria",
-                                    disabled = True)
-                                },
-                           hide_index=True
-                          )
+with display_1:
+    
+  filtered_metas = df_metas.loc[
+      (df_metas["month"] == period_filter) &
+      (df_metas["plataforma"] == plataforma_filter)
+  ]
+
+  if filtered_metas.shape[0] == 0:
+    filtered_metas = pd.DataFrame(columns=["plataforma","month","categoria","meta"])
+    filtered_metas["categoria"] = categorias
+    filtered_metas["plataforma"] = plataforma_filter
+    filtered_metas["month"] = period_filter
+
+  edited_df = st.data_editor(filtered_metas,
+                            column_config={
+                                  "meta": st.column_config.NumberColumn(
+                                      "Meta",
+                                      min_value=0,
+                                      format="%d %%"),
+                                  "plataforma": st.column_config.Column(
+                                      "Plataforma",
+                                      disabled = True),
+                                  "month": st.column_config.Column(
+                                      "Mês",
+                                      disabled = True),
+                                  "categoria": st.column_config.Column(
+                                      "Categoria",
+                                      disabled = True)
+                                  },
+                            hide_index=True
+                            )
+  with display_2:
+    st.metric(edited_df["meta"].sum())
 
 def upload_changes(df_original,df_edited):
 
