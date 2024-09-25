@@ -44,7 +44,7 @@ with filtro_2:
 display_1,display_2 = st.columns([2,1])
 
 with display_1:
-    
+
   filtered_metas = df_metas.loc[
       (df_metas["month"] == period_filter) &
       (df_metas["plataforma"] == plataforma_filter)
@@ -73,7 +73,7 @@ with display_1:
                                       disabled = True)
                                   },
                             hide_index=True,
-                            use_container_width = True 
+                            use_container_width = True
                             )
   with display_2:
     soma_da_meta = edited_df["meta"].sum()
@@ -89,7 +89,7 @@ def upload_changes(df_original,df_edited):
 
   conn = st.connection("gsheets", type=GSheetsConnection)
   try:
-    response = conn.update(data=df_to_upload,worksheet="aux - Configurar metas")
+    response = conn.update(data=df_to_upload,worksheet="aux - Configurar metas categoria")
     st.session_state["meta_categoria_df"]  = df_to_upload
     st.session_state["callback_meta_categoria_result"] = True
   except:
