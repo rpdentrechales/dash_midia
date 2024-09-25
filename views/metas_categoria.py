@@ -13,7 +13,7 @@ def load_dataframe(worksheet):
 
   return df
 
-st.markdown("# Cadastrar Metas")
+st.markdown("# Cadastrar Metas por Categoria")
 
 st.session_state.setdefault("main_df", load_dataframe("aux - Configurar metas"))
 
