@@ -77,7 +77,10 @@ with display_1:
                             )
   with display_2:
     soma_da_meta = edited_df["meta"].sum()
-    st.metric("Total",soma_da_meta)
+    if soma_da_meta != 100:
+      st.markdown(f":red[{soma_da_meta} %]")
+    else:
+      st.markdown(f":green[{soma_da_meta} %]")
 
 def upload_changes(df_original,df_edited):
 
