@@ -15,9 +15,9 @@ def load_dataframe(worksheet):
 
 st.markdown("# Cadastrar Metas por Categoria")
 
-st.session_state.setdefault("main_df", load_dataframe("aux - Configurar metas categoria"))
+st.session_state.setdefault("meta_categoria_df", load_dataframe("aux - Configurar metas categoria"))
 
-df_metas = st.session_state["main_df"]
+df_metas = st.session_state["meta_categoria_df"]
 
 df_categorias = load_dataframe("Auxiliar - Categorias")
 categorias = df_categorias["Categoria"].unique()
@@ -90,14 +90,14 @@ def upload_changes(df_original,df_edited):
   conn = st.connection("gsheets", type=GSheetsConnection)
   try:
     response = conn.update(data=df_to_upload,worksheet="aux - Configurar metas")
-    st.session_state["main_df"]  = df_to_upload
-    st.session_state["callback_result"] = True
+    st.session_state["meta_categoria_df"]  = df_to_upload
+    st.session_state["callback_meta_categoria_result"] = True
   except:
     response = "Erro"
-    st.session_state["callback_result"] = False
+    st.session_state["callback_meta_categoria_result"] = False
 
-if st.button("Salvar modificações",on_click=upload_changes,args=(st.session_state["main_df"],edited_df)):
-  if ("callback_result" in st.session_state) and st.session_state["callback_result"]:
+if st.button("Salvar modificações",on_click=upload_changes,args=(st.session_state["meta_categoria_df"],edited_df)):
+  if ("callback_meta_categoria_result" in st.session_state) and st.session_state["callback_meta_categoria_result"]:
     st.balloons()
     st.success("Modificações salvas com sucesso")
 
