@@ -15,19 +15,19 @@ def load_dataframe(worksheet):
 
 st.markdown("# Cadastrar Metas")
 
-st.session_state.setdefault("main_df", load_dataframe("aux - Configurar metas"))
+st.session_state.setdefault("main_df", load_dataframe("aux - Configurar metas unidade"))
 
 df_metas = st.session_state["main_df"]
 
-df_categorias = load_dataframe("Auxiliar - Categorias")
-categorias = df_categorias["Categoria"].unique()
-categorias = list(categorias)
+df_unidades = load_dataframe("Auxiliar - Unidades")
+unidades = df_unidades["Categoria"].unique().sort_values(ascending=True)
+unidades = list(unidades)
 
 df_metas["month"] = pd.PeriodIndex(df_metas["month"], freq="M")
 
 current_date = datetime.now()
 periods = pd.period_range(start=current_date - pd.DateOffset(months=11),
-                          end=current_date, freq='M')
+                          end=current_date + pd.DateOffset(months=1), freq='M')
 
 combined_periods = pd.concat([df_metas["month"], pd.Series(periods)])
 combined_periods = combined_periods.drop_duplicates().sort_values(ascending=False)
@@ -36,35 +36,30 @@ combined_periods = combined_periods.reset_index(drop=True)
 filtro_1, filtro_2 = st.columns([2,1])
 
 with filtro_1:
-  plataforma_filter = st.selectbox("Selecione a Plataforma",["Facebook","Google Ads"])
-with filtro_2:
-  period_filter = st.selectbox("Selecione o Mês",combined_periods)
+  period_filter = st.selectbox("Selecione o Mês",combined_periods,index=1)  
 
-filtered_metas = df_metas.loc[
-    (df_metas["month"] == period_filter) &
-    (df_metas["plataforma"] == plataforma_filter)
-]
+filtered_metas = df_metas.loc[df_metas["month"] == period_filter]
 
 if filtered_metas.shape[0] == 0:
-  filtered_metas = pd.DataFrame(columns=["plataforma","month","categoria","meta"])
-  filtered_metas["categoria"] = categorias
-  filtered_metas["plataforma"] = plataforma_filter
+  filtered_metas = pd.DataFrame(columns=["unidade","month","meta facebook","meta google"])
+  filtered_metas["unidade"] = unidades
   filtered_metas["month"] = period_filter
 
 edited_df = st.data_editor(filtered_metas,
                            column_config={
-                                "meta": st.column_config.NumberColumn(
-                                    "Meta",
+                                "meta facebook": st.column_config.NumberColumn(
+                                    "Meta Facebook (R$)",
                                     min_value=0,
                                     format="R$ %.2f"),
-                                "plataforma": st.column_config.Column(
+                                "meta google": st.column_config.NumberColumn(
+                                    "Meta Google (R$)",
+                                    min_value=0,
+                                    format="R$ %.2f"),
+                                "unidade": st.column_config.Column(
                                     "Plataforma",
                                     disabled = True),
                                 "month": st.column_config.Column(
                                     "Mês",
-                                    disabled = True),
-                                "categoria": st.column_config.Column(
-                                    "Categoria",
                                     disabled = True)
                                 },
                            hide_index=True
