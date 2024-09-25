@@ -71,9 +71,9 @@ with display_1:
                             )
   
 with display_2:
-  soma_metas = edited_df["meta facebook"] + edited_df["meta google"]
+  soma_metas = pd.DataFrame(edited_df["meta facebook"] + edited_df["meta google"], columns=["Total"])
+  soma_metas["Total"] = soma_metas["Total"].fillna(0)
   st.dataframe(soma_metas)
-
 
 def upload_changes(df_original,df_edited):
 
