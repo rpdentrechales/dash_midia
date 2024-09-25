@@ -15,7 +15,7 @@ def load_dataframe(worksheet):
 
 st.markdown("# Cadastrar Metas por Categoria")
 
-st.session_state.setdefault("main_df", load_dataframe("aux - Configurar metas"))
+st.session_state.setdefault("main_df", load_dataframe("aux - Configurar metas categoria"))
 
 df_metas = st.session_state["main_df"]
 
@@ -27,18 +27,21 @@ df_metas["month"] = pd.PeriodIndex(df_metas["month"], freq="M")
 
 current_date = datetime.now()
 periods = pd.period_range(start=current_date - pd.DateOffset(months=11),
-                          end=current_date, freq='M')
+                          end=current_date + pd.DateOffset(months=1), freq='M')
 
 combined_periods = pd.concat([df_metas["month"], pd.Series(periods)])
 combined_periods = combined_periods.drop_duplicates().sort_values(ascending=False)
 combined_periods = combined_periods.reset_index(drop=True)
+
+current_month_str = pd.Period(current_date, freq='M').astype(str)
+current_month_index = combined_periods.get_loc(current_month_str)
 
 filtro_1, filtro_2 = st.columns([2,1])
 
 with filtro_1:
   plataforma_filter = st.selectbox("Selecione a Plataforma",["Facebook","Google Ads"])
 with filtro_2:
-  period_filter = st.selectbox("Selecione o Mês",combined_periods)
+  period_filter = st.selectbox("Selecione o Mês", combined_periods, index=current_month_index)
 
 
 display_1,display_2 = st.columns([2,1])
