@@ -71,9 +71,17 @@ with display_1:
                             )
   
 with display_2:
-  soma_metas = pd.DataFrame(edited_df["meta facebook"] + edited_df["meta google"], columns=["Total"])
+  soma_metas = pd.DataFrame(edited_df["meta facebook"] + edited_df["meta google"], columns=["total"])
   soma_metas["Total"] = soma_metas["Total"].fillna(0)
-  st.dataframe(soma_metas)
+  st.dataframe(soma_metas,
+               hide_index = True,
+               column_config={
+                                  "total": st.column_config.NumberColumn(
+                                      "Meta Total (R$)",
+                                      min_value=0,
+                                      format="R$ %.2f")
+                             }
+               )
 
 def upload_changes(df_original,df_edited):
 
