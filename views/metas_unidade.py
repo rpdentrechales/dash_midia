@@ -33,7 +33,7 @@ combined_periods = pd.concat([df_metas["month"], pd.Series(periods)])
 combined_periods = combined_periods.drop_duplicates().sort_values(ascending=False)
 combined_periods = combined_periods.reset_index(drop=True)
 
-filtro_1, filtro_2 = st.columns([2,1])
+filtro_1, filtro_2 = st.columns([1,1])
 
 with filtro_1:
   period_filter = st.selectbox("Selecione o Mês",combined_periods,index=1)  
@@ -45,7 +45,7 @@ if filtered_metas.shape[0] == 0:
   filtered_metas["unidade"] = unidades
   filtered_metas["month"] = period_filter
 
-diplay_1,display_2 = st.columns([2,1])
+display_1,display_2 = st.columns([2,1])
 
 with display_1:
 
