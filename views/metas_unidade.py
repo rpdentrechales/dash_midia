@@ -45,25 +45,35 @@ if filtered_metas.shape[0] == 0:
   filtered_metas["unidade"] = unidades
   filtered_metas["month"] = period_filter
 
-edited_df = st.data_editor(filtered_metas,
-                           column_config={
-                                "meta facebook": st.column_config.NumberColumn(
-                                    "Meta Facebook (R$)",
-                                    min_value=0,
-                                    format="R$ %.2f"),
-                                "meta google": st.column_config.NumberColumn(
-                                    "Meta Google (R$)",
-                                    min_value=0,
-                                    format="R$ %.2f"),
-                                "unidade": st.column_config.Column(
-                                    "Plataforma",
-                                    disabled = True),
-                                "month": st.column_config.Column(
-                                    "Mês",
-                                    disabled = True)
-                                },
-                           hide_index=True
-                          )
+diplay_1,display_2 = st.columns([2,1])
+
+with display_1:
+
+  edited_df = st.data_editor(filtered_metas,
+                            column_config={
+                                  "meta facebook": st.column_config.NumberColumn(
+                                      "Meta Facebook (R$)",
+                                      min_value=0,
+                                      format="R$ %.2f"),
+                                  "meta google": st.column_config.NumberColumn(
+                                      "Meta Google (R$)",
+                                      min_value=0,
+                                      format="R$ %.2f"),
+                                  "unidade": st.column_config.Column(
+                                      "Plataforma",
+                                      disabled = True),
+                                  "month": st.column_config.Column(
+                                      "Mês",
+                                      disabled = True)
+                                  },
+                            hide_index=True,
+                            use_container_width = True
+                            )
+  
+with display_2:
+  soma_metas = edited_df["meta facebook"] + edited_df["meta google"]
+  st.dataframe(soma_metas)
+
 
 def upload_changes(df_original,df_edited):
 
