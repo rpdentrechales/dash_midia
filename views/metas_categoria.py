@@ -75,7 +75,8 @@ with display_1:
                             hide_index=True
                             )
   with display_2:
-    st.metric("Total",edited_df["meta"].sum())
+    soma_da_meta = edited_df["meta"].sum()
+    st.metric("Total",soma_da_meta)
 
 def upload_changes(df_original,df_edited):
 
