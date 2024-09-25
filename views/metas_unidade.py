@@ -36,7 +36,7 @@ combined_periods = combined_periods.reset_index(drop=True)
 filtro_1, filtro_2 = st.columns([1,1])
 
 with filtro_1:
-  period_filter = st.selectbox("Selecione o Mês",combined_periods,index=1)  
+  period_filter = st.selectbox("Selecione o Mês",combined_periods,index=1)
 
 filtered_metas = df_metas.loc[df_metas["month"] == period_filter]
 
@@ -69,7 +69,7 @@ with display_1:
                             hide_index=True,
                             use_container_width = True
                             )
-  
+
 with display_2:
   soma_metas = pd.DataFrame(edited_df["meta facebook"] + edited_df["meta google"], columns=["total"])
   soma_metas["total"] = soma_metas["total"].fillna(0)
@@ -91,7 +91,7 @@ def upload_changes(df_original,df_edited):
 
   conn = st.connection("gsheets", type=GSheetsConnection)
   try:
-    response = conn.update(data=df_to_upload,worksheet="aux - Configurar metas")
+    response = conn.update(data=df_to_upload,worksheet="aux - Configurar metas unidade")
     st.session_state["meta_unidade_df"]  = df_to_upload
     st.session_state["callback_meta_unidade_result"] = True
   except:
