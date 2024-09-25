@@ -12,9 +12,14 @@ acompanhamento_page = st.Page(
     title="Acompanhamento",
     icon=":material/summarize:",
 )
-metas_page = st.Page(
-    "views/metas.py",
-    title="Cadastrar Metas",
+metas_categoria_page = st.Page(
+    "views/metas_categoria.py",
+    title="Meta por Categoria",
+    icon=":material/manufacturing:",
+)
+metas_unidade_page = st.Page(
+    "views/metas_unidade.py",
+    title="Meta por Unidade",
     icon=":material/manufacturing:",
 )
 google_page = st.Page(
@@ -36,7 +41,7 @@ gsheets_test = st.Page(
 pg = st.navigation(
     {
         "Relatórios": [fb_page, acompanhamento_page],
-        "Configurações": [metas_page,gsheets_test]
+        "Cadastrar Metas": [metas_unidade_page,metas_categoria_page]
     }
 )
 
