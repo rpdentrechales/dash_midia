@@ -56,7 +56,7 @@ edited_df = st.data_editor(filtered_metas,
                                 "meta": st.column_config.NumberColumn(
                                     "Meta",
                                     min_value=0,
-                                    format="%%"),
+                                    format="%d%%"),
                                 "plataforma": st.column_config.Column(
                                     "Plataforma",
                                     disabled = True),
