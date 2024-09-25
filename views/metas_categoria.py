@@ -33,7 +33,7 @@ combined_periods = pd.concat([df_metas["month"], pd.Series(periods)])
 combined_periods = combined_periods.drop_duplicates().sort_values(ascending=False)
 combined_periods = combined_periods.reset_index(drop=True)
 
-current_month_str = pd.Period(current_date, freq='M').astype(str)
+current_month_str = pd.Period(current_date, freq='M')
 current_month_index = combined_periods.get_loc(current_month_str)
 
 filtro_1, filtro_2 = st.columns([2,1])
