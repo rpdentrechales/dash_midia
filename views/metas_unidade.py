@@ -20,7 +20,7 @@ st.session_state.setdefault("meta_unidade_df", load_dataframe("aux - Configurar 
 df_metas = st.session_state["meta_unidade_df"]
 
 df_unidades = load_dataframe("Auxiliar - Unidades")
-unidades = df_unidades["Categoria"].unique().sort_values(ascending=True)
+unidades = df_unidades["Unidade"].unique().sort_values(ascending=True)
 unidades = list(unidades)
 
 df_metas["month"] = pd.PeriodIndex(df_metas["month"], freq="M")
