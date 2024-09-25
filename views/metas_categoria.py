@@ -72,7 +72,8 @@ with display_1:
                                       "Categoria",
                                       disabled = True)
                                   },
-                            hide_index=True
+                            hide_index=True,
+                            use_container_width = True 
                             )
   with display_2:
     soma_da_meta = edited_df["meta"].sum()
