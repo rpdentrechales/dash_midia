@@ -72,9 +72,9 @@ with display_1:
   df_total['total'] = df_total['meta facebook'].fillna(0) + df_total['meta google'].fillna(0)
 
   with display_2:
-    st.metric("Total Geral",f"R$ {df_total['total'].sum()}")
-    st.metric("Total Facebook",f"R$ {df_total['meta facebook'].sum()}")
-    st.metric("Total Google",f"R$ {df_total['meta google'].sum()}")
+    st.metric("Total Geral",f"R$ {df_total['total'].sum() :.2f}")
+    st.metric("Total Facebook",f"R$ {df_total['meta facebook'].sum() :.2f}")
+    st.metric("Total Google",f"R$ {df_total['meta google'].sum() :.2f}")
 
   with display_3:
 
