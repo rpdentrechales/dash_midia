@@ -59,7 +59,7 @@ with display_1:
               "Meta Google (R$)", min_value=0, format="R$ %.2f"
           ),
           "unidade": st.column_config.Column(
-              "Plataforma", disabled=True
+              "Unidade", disabled=True
           ),
           "month": st.column_config.Column(
               "Mês", disabled=True
@@ -72,12 +72,19 @@ with display_1:
   with display_2:
   
     # Add a new column for the sum of 'meta facebook' and 'meta google'
-    edited_df['total'] = edited_df['meta facebook'] + edited_df['meta google']
+    edited_df['total'] = edited_df['meta facebook'].fillna(0) + edited_df['meta google'].fillna(0)
 
     # Display the DataFrame with the new calculated column
     st.dataframe(edited_df[["unidade","total"]],
-      hide_index=True,
-      use_container_width=True)
+                 column_config={
+                      "total": st.column_config.NumberColumn(
+                       "Meta Total (R$)", min_value=0, format="R$ %.2f"
+                    ),
+                    "unidade": st.column_config.Column(
+                        "Unidade")
+                  },
+                  hide_index=True,
+                  use_container_width=True)
 
 def upload_changes(df_original,df_edited):
 
