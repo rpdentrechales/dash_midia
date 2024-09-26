@@ -75,20 +75,6 @@ with display_1:
   # Display the DataFrame with the new calculated column
   st.write(edited_df)
 
-with display_2:
-  soma_metas = pd.DataFrame(edited_df["meta facebook"] + edited_df["meta google"], columns=["total"])
-  soma_metas["total"] = soma_metas["total"].fillna(0)
-
-  st.dataframe(soma_metas,
-               hide_index = True,
-               column_config={
-                                  "total": st.column_config.NumberColumn(
-                                      "Meta Total (R$)",
-                                      min_value=0,
-                                      format="R$ %.2f")
-                             }
-               )
-
 def upload_changes(df_original,df_edited):
 
   df_to_upload = pd.concat([df_original,df_edited])
