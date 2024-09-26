@@ -45,7 +45,7 @@ if filtered_metas.shape[0] == 0:
   filtered_metas["unidade"] = unidades
   filtered_metas["month"] = period_filter
 
-display_1,display_2,,display_3 = st.columns([2,1,1])
+display_1,display_2,display_3 = st.columns([2,1,1])
 
 with display_1:
 
