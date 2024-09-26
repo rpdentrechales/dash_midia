@@ -80,11 +80,11 @@ total_row["CPL"] = total_row['Amount Spent']/total_row['Results']
 metrics_1,metrics_2,metrics_3 = st.columns(3)
 
 with metrics_1:
-  st.metric("Resultados Total",total_row["Results"])
+  st.metric("Resultados Total",f"{total_row["Results"] :.0f}")
 with metrics_2:
-  st.metric("Custo Total",total_row["Amount Spent"])
+  st.metric("Custo Total",f"R$ {total_row["Amount Spent"] :.2f}")
 with metrics_3:
-  st.metric("CPL Total",total_row["CPL"])
+  st.metric("CPL Total",f"R$ {total_row["CPL"] :.2f}")
 
 st.dataframe(
     total_groupby,
