@@ -104,7 +104,7 @@ store_filter = st.selectbox(label = "Selecione a Unidade",
                                    options=df_sem_cirurgia['Unidade'].unique())
 
 if (store_filter):
-  df_filtered = df_sem_cirurgia.loc[df_filtered['Unidade'] == store_filter]
+  df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['Unidade'] == store_filter]
 
 categoria_groupby = df_filtered.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
 
