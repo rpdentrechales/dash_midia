@@ -142,6 +142,17 @@ categoria_groupby = df_filtered.groupby(["Categoria"]).agg({"Results":"sum","Amo
 
 categoria_groupby["CPL"] = categoria_groupby["Amount Spent"]/categoria_groupby["Results"]
 
+categoria_total_row = pd.DataFrame(categoria_groupby[['Results', 'Amount Spent']].sum()).transpose()
+categoria_total_row["CPL"] = categoria_total_row['Amount Spent']/categoria_total_row['Results']
+
+categoria_total_resultados = categoria_total_row['Results'].values[0]
+categoria_total_custo = categoria_total_row['Amount Spent'].values[0]
+categoria_total_cpl = categoria_total_row['CPL'].values[0]
+
+categoria_groupby["share_custo"] = (categoria_groupby["Amount Spent"]/categoria_total_custo) * 100
+categoria_groupby["share_resultados"] = (categoria_groupby["Results"]/categoria_total_resultados) * 100
+
+
 st.dataframe(
     categoria_groupby,
     use_container_width=True,
@@ -164,5 +175,15 @@ st.dataframe(
             "Resultados",
             width="small"
         ),
+        "share_custo": st.column_config.NumberColumn(
+            "Share Custo (%)",
+            format="%.2f %%",
+            width="small"
+        ),
+        "share_resultados": st.column_config.NumberColumn(
+            "Share Resultados (%)",
+            format="%.2f %%",
+            width="small"
+        )
     }
   )
