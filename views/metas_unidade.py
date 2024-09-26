@@ -89,7 +89,7 @@ with display_1:
 def upload_changes(df_original,df_edited):
 
   df_to_upload = pd.concat([df_original,df_edited])
-  df_to_upload = df_to_upload.drop_duplicates(subset=["plataforma","month","categoria"],keep="last")
+  df_to_upload = df_to_upload.drop_duplicates(subset=["unidade","month"],keep="last")
 
   conn = st.connection("gsheets", type=GSheetsConnection)
   try:
