@@ -77,6 +77,8 @@ total_row = pd.DataFrame(total_groupby[['Results', 'Amount Spent']].sum()).trans
 total_row["CPL"] = total_row['Amount Spent']/total_row['Results']
 total_row['Categoria'] = 'Total'
 
+st.dataframe(total_groupby)
+
 # st.dataframe(total_row)
 total_groupby = pd.concat([total_groupby, total_row], ignore_index=True)
 
