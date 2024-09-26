@@ -45,7 +45,7 @@ if filtered_metas.shape[0] == 0:
   filtered_metas["unidade"] = unidades
   filtered_metas["month"] = period_filter
 
-display_1,display_2 = st.columns([2,1])
+display_1,display_2,,display_3 = st.columns([2,1,1])
 
 with display_1:
 
@@ -68,13 +68,16 @@ with display_1:
       hide_index=True,
       use_container_width=True
   )
+  df_total = edited_df
+  df_total['total'] = df_total['meta facebook'].fillna(0) + df_total['meta google'].fillna(0)
 
   with display_2:
-    df_total = edited_df
-    # Add a new column for the sum of 'meta facebook' and 'meta google'
-    df_total['total'] = df_total['meta facebook'].fillna(0) + df_total['meta google'].fillna(0)
+    st.metric("Total Geral",df_total['total'].sum())
+    st.metric("Total Facebook",df_total['meta facebook'].sum())
+    st.metric("Total Google",df_total['meta google'].sum())
 
-    # Display the DataFrame with the new calculated column
+  with display_3:
+
     st.dataframe(df_total[["unidade","total"]],
                  column_config={
                       "total": st.column_config.NumberColumn(
