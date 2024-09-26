@@ -52,12 +52,24 @@ df.loc[df['Account Name'] == "Campanhas Whatsapp","Categoria"] = df.loc[df['Acco
 df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
 df["month"] = df["Day"].dt.to_period("M")
 
-st.markdown("# Acompanhamento de Mídia")
+titulo_1,titulo_2 = st.columns([3,1])
+
+with titulo_1:
+  st.markdown("# Acompanhamento de Mídia")
+
+with titulo_2:
+  month_filter = st.selectbox(label = "Selecione o Mês",
+                                   placeholder= 'Selecione o mês',
+                                   options=df_sem_cirurgia['month'].unique())
+
 
 st.markdown("## Facebook")
 
 df_sem_cirurgia = df.loc[df["Account Name"] != "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 df_cirurgia = df.loc[df["Account Name"] == "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
+
+if (month_filter):
+  df_sem_cirurgia = df_sem_cirurgia.loc[df_sem_cirurgia['month'] == month_filter]
 
 total_groupby = df_sem_cirurgia.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
 total_groupby["CPL"] = total_groupby["Amount Spent"]/total_groupby["Results"]
@@ -87,23 +99,12 @@ st.dataframe(
     }
   )
 
-
-filtro_1,filtro_2= st.columns(2,gap='large')
-
-with filtro_1:
-  store_filter = st.selectbox(label = "Selecione a Unidade",
+store_filter = st.selectbox(label = "Selecione a Unidade",
                                    placeholder= 'Selecione a Unidade',
                                    options=df_sem_cirurgia['Unidade'].unique())
-with filtro_2:
-  month_filter = st.selectbox(label = "Selecione o Mês",
-                                   placeholder= 'Selecione o mês',
-                                   options=df_sem_cirurgia['month'].unique())
-
-if (month_filter):
-  df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['month'] == month_filter]
 
 if (store_filter):
-  df_filtered = df_filtered.loc[df_filtered['Unidade'] == store_filter]
+  df_filtered = df_sem_cirurgia.loc[df_filtered['Unidade'] == store_filter]
 
 categoria_groupby = df_filtered.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
 
