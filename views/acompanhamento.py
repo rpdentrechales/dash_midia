@@ -71,6 +71,7 @@ if (month_filter):
   df_sem_cirurgia = df_sem_cirurgia.loc[df_sem_cirurgia['month'] == month_filter]
 
 total_groupby = df_sem_cirurgia.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
+total_groupby = total_groupby.reset_index()
 total_groupby["CPL"] = total_groupby["Amount Spent"]/total_groupby["Results"]
 
 total_row = pd.DataFrame(total_groupby[['Results', 'Amount Spent']].sum()).transpose()
