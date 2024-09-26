@@ -75,7 +75,9 @@ with display_1:
     edited_df['total'] = edited_df['meta facebook'] + edited_df['meta google']
 
     # Display the DataFrame with the new calculated column
-    st.dataframe(edited_df[["unidade","total"]])
+    st.dataframe(edited_df[["unidade","total"]],
+      hide_index=True,
+      use_container_width=True)
 
 def upload_changes(df_original,df_edited):
 
