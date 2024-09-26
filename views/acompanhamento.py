@@ -80,6 +80,8 @@ total_row['Categoria'] = 'Total'
 # st.dataframe(total_row)
 total_groupby = pd.concat([total_groupby, total_row], ignore_index=True)
 
+st.dataframe(total_groupby)
+
 st.dataframe(
     total_groupby,
     use_container_width=True,
