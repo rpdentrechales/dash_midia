@@ -2,7 +2,6 @@ import streamlit as st
 import altair as alt
 import pandas as pd
 import plotly.express as px
-from numerize.numerize import numerize
 from streamlit_gsheets import GSheetsConnection
 import datetime
 
@@ -55,8 +54,39 @@ df["month"] = df["Day"].dt.to_period("M")
 
 st.markdown("# Acompanhamento de Mídia")
 
+st.markdown("## Facebook")
+
 df_sem_cirurgia = df.loc[df["Account Name"] != "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 df_cirurgia = df.loc[df["Account Name"] == "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
+
+total_groupby = df_sem_cirurgia.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
+total_groupby["CPL"] = total_groupby["Amount Spent"]/total_groupby["Results"]
+
+st.dataframe(
+    total_groupby,
+    use_container_width=True,
+    column_config={
+        "Amount Spent": st.column_config.NumberColumn(
+            "Custo",
+            format="R$ %.2f",
+            width="small"
+        ),
+        "CPL": st.column_config.NumberColumn(
+            "CPL",
+            format="R$ %.2f",
+            width="small"
+        ),
+        "Categoria": st.column_config.Column(
+            "Categoria",
+            width="large"
+        ),
+        "Results": st.column_config.NumberColumn(
+            "Resultados",
+            width="small"
+        ),
+    }
+  )
+
 
 filtro_1,filtro_2= st.columns(2,gap='large')
 
