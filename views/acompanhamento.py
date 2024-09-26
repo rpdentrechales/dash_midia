@@ -65,7 +65,6 @@ with titulo_2:
                                    placeholder= 'Selecione o mês',
                                    options=df_sem_cirurgia['month'].unique())
 
-
 st.markdown("## Facebook")
 
 if (month_filter):
@@ -73,6 +72,12 @@ if (month_filter):
 
 total_groupby = df_sem_cirurgia.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
 total_groupby["CPL"] = total_groupby["Amount Spent"]/total_groupby["Results"]
+
+total_row = pd.DataFrame(total_groupby[['Results', 'Amount Spent']].sum()).transpose()
+total_row["CPL"] = total_row['Amount Spent']/total_row['Results']
+total_row['categoria'] = 'Total'
+
+total_groupby = pd.concat([total_groupby, total_row], ignore_index=True)
 
 st.dataframe(
     total_groupby,
