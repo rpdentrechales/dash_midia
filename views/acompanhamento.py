@@ -81,8 +81,8 @@ total_resultados = total_row['Results'].values[0]
 total_custo = total_row['Amount Spent'].values[0]
 total_cpl = total_row['CPL'].values[0]
 
-total_groupby["share_custo"] = total_groupby["Amount Spent"]/total_custo
-total_groupby["share_resultados"] = total_groupby["Results"]/total_resultados
+total_groupby["share_custo"] = (total_groupby["Amount Spent"]/total_custo) * 100
+total_groupby["share_resultados"] = (total_groupby["Results"]/total_resultados) * 100
 
 metrics_1,metrics_2,metrics_3 = st.columns(3)
 
