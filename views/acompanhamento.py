@@ -52,6 +52,9 @@ df.loc[df['Account Name'] == "Campanhas Whatsapp","Categoria"] = df.loc[df['Acco
 df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
 df["month"] = df["Day"].dt.to_period("M")
 
+df_sem_cirurgia = df.loc[df["Account Name"] != "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
+df_cirurgia = df.loc[df["Account Name"] == "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
+
 titulo_1,titulo_2 = st.columns([3,1])
 
 with titulo_1:
@@ -64,9 +67,6 @@ with titulo_2:
 
 
 st.markdown("## Facebook")
-
-df_sem_cirurgia = df.loc[df["Account Name"] != "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
-df_cirurgia = df.loc[df["Account Name"] == "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 
 if (month_filter):
   df_sem_cirurgia = df_sem_cirurgia.loc[df_sem_cirurgia['month'] == month_filter]
