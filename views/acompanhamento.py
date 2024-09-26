@@ -76,9 +76,15 @@ total_groupby["CPL"] = total_groupby["Amount Spent"]/total_groupby["Results"]
 
 total_row = pd.DataFrame(total_groupby[['Results', 'Amount Spent']].sum()).transpose()
 total_row["CPL"] = total_row['Amount Spent']/total_row['Results']
-total_row['Categoria'] = 'Total'
 
-total_groupby = pd.concat([total_groupby, total_row], ignore_index=True)
+metrics_1,metrics_2,metrics_3 = st.columns(3)
+
+with metrics_1:
+  st.metric("Resultados Total",total_row["Results"])
+with metrics_2:
+  st.metric("Custo Total",total_row["Amount Spent"])
+with metrics_3:
+  st.metric("CPL Total",total_row["CPL"])
 
 st.dataframe(
     total_groupby,
