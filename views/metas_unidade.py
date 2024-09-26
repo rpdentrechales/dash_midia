@@ -100,7 +100,7 @@ def upload_changes(df_original,df_edited):
     response = "Erro"
     st.session_state["callback_meta_unidade_result"] = False
 
-if st.button("Salvar modificações",on_click=upload_changes,args=(st.session_state["meta_unidade_df"],edited_df)):
+if st.button("Salvar modificações",on_click=upload_changes,args=(st.session_state["meta_unidade_df"],edited_df[["unidade","month","meta facebook","meta google"]])):
   if ("callback_meta_unidade_result" in st.session_state) and st.session_state["callback_meta_unidade_result"]:
     st.balloons()
     st.success("Modificações salvas com sucesso")
