@@ -69,11 +69,13 @@ with display_1:
       use_container_width=True
   )
 
-  # Add a new column for the sum of 'meta facebook' and 'meta google'
-  edited_df['total'] = edited_df['meta facebook'] + edited_df['meta google']
+  with display_2:
+  
+    # Add a new column for the sum of 'meta facebook' and 'meta google'
+    edited_df['total'] = edited_df['meta facebook'] + edited_df['meta google']
 
-  # Display the DataFrame with the new calculated column
-  st.write(edited_df)
+    # Display the DataFrame with the new calculated column
+    st.dataframe(edited_df[["unidade","total"]])
 
 def upload_changes(df_original,df_edited):
 
