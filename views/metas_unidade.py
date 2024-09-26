@@ -70,12 +70,12 @@ with display_1:
   )
 
   with display_2:
-  
+    df_total = edited_df
     # Add a new column for the sum of 'meta facebook' and 'meta google'
-    edited_df['total'] = edited_df['meta facebook'].fillna(0) + edited_df['meta google'].fillna(0)
+    df_total['total'] = df_total['meta facebook'].fillna(0) + df_total['meta google'].fillna(0)
 
     # Display the DataFrame with the new calculated column
-    st.dataframe(edited_df[["unidade","total"]],
+    st.dataframe(df_total[["unidade","total"]],
                  column_config={
                       "total": st.column_config.NumberColumn(
                        "Meta Total (R$)", min_value=0, format="R$ %.2f"
