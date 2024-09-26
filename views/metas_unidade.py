@@ -45,7 +45,7 @@ if filtered_metas.shape[0] == 0:
   filtered_metas["unidade"] = unidades
   filtered_metas["month"] = period_filter
 
-display_1,display_2,display_3 = st.columns([2,1,1])
+display_1,display_2,display_3 = st.columns([2,0.7,1])
 
 with display_1:
 
@@ -72,9 +72,9 @@ with display_1:
   df_total['total'] = df_total['meta facebook'].fillna(0) + df_total['meta google'].fillna(0)
 
   with display_2:
-    st.metric("Total Geral",df_total['total'].sum())
-    st.metric("Total Facebook",df_total['meta facebook'].sum())
-    st.metric("Total Google",df_total['meta google'].sum())
+    st.metric("Total Geral",f"R$ {df_total['total'].sum()}")
+    st.metric("Total Facebook",f"R$ {df_total['meta facebook'].sum()}")
+    st.metric("Total Google",f"R$ {df_total['meta google'].sum()}")
 
   with display_3:
 
