@@ -77,14 +77,21 @@ total_groupby["CPL"] = total_groupby["Amount Spent"]/total_groupby["Results"]
 total_row = pd.DataFrame(total_groupby[['Results', 'Amount Spent']].sum()).transpose()
 total_row["CPL"] = total_row['Amount Spent']/total_row['Results']
 
+total_resultados = total_row['Results'].values[0]
+total_custo = total_row['Amount Spent'].values[0]
+total_cpl = total_row['CPL'].values[0]
+
+total_groupby["share_custo"] = total_groupby["Amount Spent"]/total_custo
+total_groupby["share_resultados"] = total_groupby["Results"]/total_resultados
+
 metrics_1,metrics_2,metrics_3 = st.columns(3)
 
 with metrics_1:
-  st.metric("Resultados Total",f"{total_row['Results'].values[0] :.0f}")
+  st.metric("Resultados Total",f"{total_resultados :.0f}")
 with metrics_2:
-  st.metric("Custo Total",f"R$ {total_row['Amount Spent'].values[0] :.2f}")
+  st.metric("Custo Total",f"R$ {total_custo :.2f}")
 with metrics_3:
-  st.metric("CPL Total",f"R$ {total_row['CPL'].values[0] :.2f}")
+  st.metric("CPL Total",f"R$ {total_cpl :.2f}")
 
 st.dataframe(
     total_groupby,
@@ -108,6 +115,16 @@ st.dataframe(
             "Resultados",
             width="small"
         ),
+        "share_custo": st.column_config.NumberColumn(
+            "Share Custo (%)",
+            format="%.2f %%",
+            width="small"
+        ),
+        "share_resultados": st.column_config.NumberColumn(
+            "Share Resultados (%)",
+            format="%.2f %%",
+            width="small"
+        )
     },
     hide_index = True
   )
