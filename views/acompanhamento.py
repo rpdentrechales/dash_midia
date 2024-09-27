@@ -38,6 +38,9 @@ df_categorias = load_aux_dataframe("Auxiliar - Categorias","Anuncio")
 df_unidades = load_aux_dataframe("Auxiliar - Unidades","Campaign Name")
 df_whatsapp = load_aux_dataframe("Auxiliar - Whatsapp","Ad Name")
 
+df_metas_categoria = load_aux_dataframe("aux - Configurar metas categoria",["plataforma","month","categoria"])
+df_metas_unidade = load_aux_dataframe("aux - Configurar metas unidade",["unidade","month"])
+
 df = pd.merge(df,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
 df = df.drop(columns=["Anuncio"])
 df["Results"] = df["Results"].fillna(0)
