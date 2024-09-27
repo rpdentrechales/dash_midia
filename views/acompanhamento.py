@@ -72,6 +72,8 @@ st.markdown("## Facebook - Total por categoria")
 
 if (month_filter):
   df_sem_cirurgia = df_sem_cirurgia.loc[df_sem_cirurgia['month'] == month_filter]
+  df_meta_categoria_mes = df_metas_categoria.loc[df_metas_categoria['month'] == month_filter]
+  df_meta_unidade_mes = df_metas_unidade.loc[df_metas_unidade['month'] == month_filter]
 
 total_groupby = df_sem_cirurgia.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
 total_groupby = total_groupby.reset_index()
