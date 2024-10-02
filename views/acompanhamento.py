@@ -77,6 +77,19 @@ store_filter = st.selectbox(label = "Selecione a Unidade",
 if (store_filter):
   df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['Unidade'] == store_filter]
 
+metrics_unidade_1,metrics_unidade_2,metrics_unidade_3 = st.columns(3)
+
+total_unidade_resultados = df_filtered["Results"]
+total_unidade_custo = df_filtered["Amount Spent"]
+total_unidade_cpl = total_unidade_custo/total_unidade_resultados
+
+with metrics_unidade_1:
+  st.metric("Resultados Total",f"{total_unidade_resultados :.0f}")
+with metrics_unidade_2:
+  st.metric("Custo Total",f"R$ {total_unidade_custo :.2f}")
+with metrics_unidade_3:
+  st.metric("CPL Total",f"R$ {total_unidade_cpl :.2f}")
+
 categoria_groupby = df_filtered.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
 
 categoria_groupby["CPL"] = categoria_groupby["Amount Spent"]/categoria_groupby["Results"]
