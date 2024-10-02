@@ -79,8 +79,8 @@ if (store_filter):
 
 metrics_unidade_1,metrics_unidade_2,metrics_unidade_3 = st.columns(3)
 
-total_unidade_resultados = df_filtered["Results"]
-total_unidade_custo = df_filtered["Amount Spent"]
+total_unidade_resultados = df_filtered["Results"].sum()
+total_unidade_custo = df_filtered["Amount Spent"].sum()
 total_unidade_cpl = total_unidade_custo/total_unidade_resultados
 
 with metrics_unidade_1:
