@@ -73,6 +73,7 @@ st.markdown("## Facebook - Total por Unidade")
 store_filter = st.selectbox(label = "Selecione a Unidade",
                                    placeholder= 'Selecione a Unidade',
                                    options=df_sem_cirurgia['Unidade'].unique())
+st.markdown(f"{df_metas_unidade}")
 
 if (month_filter):
   df_sem_cirurgia = df_sem_cirurgia.loc[df_sem_cirurgia['month'] == month_filter]
