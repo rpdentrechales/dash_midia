@@ -191,7 +191,7 @@ st.dataframe(
             "Share\nResultados (%)",
             format="%.2f %%",
             width="small"
-        )
+        ),
         "verba total": st.column_config.NumberColumn(
             "Verba total",
             format="R$ %.2f",
