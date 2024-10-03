@@ -75,7 +75,7 @@ store_filter = st.selectbox(label = "Selecione a Unidade",
                                    options=df_sem_cirurgia['Unidade'].unique())
 
 st.markdown(f"{month_filter}")
-st.dataframe(f"{df_metas_unidade}")
+st.dataframe(df_metas_unidade)
 
 if (month_filter):
   df_sem_cirurgia = df_sem_cirurgia.loc[df_sem_cirurgia['month'] == month_filter]
@@ -88,7 +88,7 @@ if (store_filter):
   df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['Unidade'] == store_filter]
   meta_selecionada = df_meta_unidade_mes.loc[df_meta_unidade_mes['unidade'] == store_filter]
 
-st.markdown(f"{meta_selecionada}")
+st.dataframe(meta_selecionada)
 
 metrics_unidade_1,metrics_unidade_2,metrics_unidade_3 = st.columns(3)
 
