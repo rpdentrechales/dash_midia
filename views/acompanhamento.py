@@ -161,7 +161,7 @@ colunas = ["categoria","Amount Spent","Results","CPL","share_custo","share_resul
 display_categoria_df = categoria_groupby[colunas]
 
 st.dataframe(
-    categoria_groupby,
+    display_categoria_df,
     use_container_width=True,
     column_config={
         "Amount Spent": st.column_config.NumberColumn(
