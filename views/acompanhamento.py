@@ -44,7 +44,6 @@ df_metas_unidade = load_aux_dataframe("aux - Configurar metas unidade",["unidade
 df_metas_unidade['month'] = pd.to_datetime(df_metas_unidade['month'])
 df_metas_unidade['month'] = df_metas_unidade['month'].dt.to_period('M')
 
-
 df_fb = pd.merge(df_fb,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
 df_fb = df_fb.drop(columns=["Anuncio"])
 df_fb["Results"] = df_fb["Results"].fillna(0)
@@ -87,7 +86,7 @@ if (store_filter):
   df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['Unidade'] == store_filter]
   meta_selecionada = df_meta_unidade_mes.loc[df_meta_unidade_mes['unidade'] == store_filter]
 
-st.dataframe(meta_selecionada)
+st.dataframe(meta_selecionada.loc[1,"meta facebook"])
 
 metrics_unidade_1,metrics_unidade_2,metrics_unidade_3 = st.columns(3)
 
