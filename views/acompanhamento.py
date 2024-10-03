@@ -86,13 +86,15 @@ if (store_filter):
   df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['Unidade'] == store_filter]
   meta_selecionada = df_meta_unidade_mes.loc[df_meta_unidade_mes['unidade'] == store_filter]
 
-st.markdown(meta_selecionada["meta facebook"].values[0])
+meta_facebook_mes = meta_selecionada["meta facebook"].values[0]
 
-metrics_unidade_1,metrics_unidade_2,metrics_unidade_3 = st.columns(3)
+metrics_unidade_1,metrics_unidade_2,metrics_unidade_3,metrics_unidade_4,metrics_unidade_5,metrics_unidade_6 = st.columns(6)
 
 total_unidade_resultados = df_filtered["Results"].sum()
 total_unidade_custo = df_filtered["Amount Spent"].sum()
 total_unidade_cpl = total_unidade_custo/total_unidade_resultados
+
+verba_restante = meta_facebook_mes - total_unidade_custo
 
 with metrics_unidade_1:
   st.metric("Resultados Total",f"{total_unidade_resultados :.0f}")
@@ -100,6 +102,10 @@ with metrics_unidade_2:
   st.metric("Custo Total",f"R$ {total_unidade_custo :.2f}")
 with metrics_unidade_3:
   st.metric("CPL Total",f"R$ {total_unidade_cpl :.2f}")
+with metrics_unidade_4:
+  st.metric("Verba Total",f"R$ {meta_facebook_mes :.2f}")
+with metrics_unidade_5:
+  st.metric("Verba Restante",f"R$ {verba_restante :.2f}")
 
 categoria_groupby = df_filtered.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
 
