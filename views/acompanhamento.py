@@ -183,32 +183,27 @@ st.dataframe(
             width="small"
         ),
         "share_custo": st.column_config.NumberColumn(
-            "Share Custo (%)",
+            "Share\nCusto (%)",
             format="%.2f %%",
             width="small"
         ),
         "share_resultados": st.column_config.NumberColumn(
-            "Share Resultados (%)",
+            "Share\nResultados (%)",
             format="%.2f %%",
             width="small"
-        ),
-        "share_resultados": st.column_config.NumberColumn(
-            "Share Resultados (%)",
-            format="%.2f %%",
-            width="small"
-        ),
+        )
         "verba total": st.column_config.NumberColumn(
             "Verba total",
             format="R$ %.2f",
             width="small"
         ),
         "verba restante": st.column_config.NumberColumn(
-            "Verba Restante",
+            "Verba\nRestante",
             format="R$ %.2f",
             width="small"
         ),
         "verba restante por dia": st.column_config.NumberColumn(
-            "verba restante por dia",
+            "verba restante\npor dia",
             format="R$ %.2f",
             width="small"
         )
