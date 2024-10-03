@@ -79,6 +79,8 @@ if (month_filter):
   df_meta_categoria_mes = df_metas_categoria.loc[df_metas_categoria['month'] == month_filter]
   df_meta_unidade_mes = df_metas_unidade.loc[df_metas_unidade['month'] == month_filter]
 
+st.markdown(f"{df_meta_unidade_mes}")
+
 if (store_filter):
   df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['Unidade'] == store_filter]
   meta_selecionada = df_meta_unidade_mes.loc[df_meta_unidade_mes['unidade'] == store_filter]
