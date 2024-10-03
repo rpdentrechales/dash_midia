@@ -123,8 +123,8 @@ with metrics_unidade_4:
   st.metric("Verba Total",f"R$ {meta_facebook_mes :.2f}")
 with metrics_unidade_5:
   st.metric("Verba Restante",f"R$ {verba_restante :.2f}")
-with metrics_unidade_5:
-  st.metric("Verba Restante",verba_restante_por_dia)
+with metrics_unidade_6:
+  st.metric("Verba Restante por dia",verba_restante_por_dia)
 
 categoria_groupby = df_filtered.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
 
