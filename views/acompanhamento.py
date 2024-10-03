@@ -55,6 +55,9 @@ df_metas_unidade = load_aux_dataframe("aux - Configurar metas unidade",["unidade
 df_metas_unidade['month'] = pd.to_datetime(df_metas_unidade['month'])
 df_metas_unidade['month'] = df_metas_unidade['month'].dt.to_period('M')
 
+df_metas_categoria['month'] = pd.to_datetime(df_metas_categoria['month'])
+df_metas_categoria['month'] = df_metas_categoria['month'].dt.to_period('M')
+
 df_fb = pd.merge(df_fb,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
 df_fb = df_fb.drop(columns=["Anuncio"])
 df_fb["Results"] = df_fb["Results"].fillna(0)
@@ -92,12 +95,14 @@ if (month_filter):
   df_sem_cirurgia = df_sem_cirurgia.loc[df_sem_cirurgia['month'] == month_filter]
   df_meta_categoria_mes = df_metas_categoria.loc[df_metas_categoria['month'] == month_filter]
   df_meta_unidade_mes = df_metas_unidade.loc[df_metas_unidade['month'] == month_filter]
+  df_metas_categoria_mes = df_metas_categoria.loc[df_metas_categoria['month'] == month_filter]
 
 if (store_filter):
   df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['Unidade'] == store_filter]
   meta_selecionada = df_meta_unidade_mes.loc[df_meta_unidade_mes['unidade'] == store_filter]
 
 meta_facebook_mes = meta_selecionada["meta facebook"].values[0]
+df_metas_categoria_mes = df_metas_categoria.loc[df_metas_categoria["plataforma"] == "Facebook"]
 
 metrics_unidade_1,metrics_unidade_2,metrics_unidade_3,metrics_unidade_4,metrics_unidade_5,metrics_unidade_6 = st.columns(6)
 
@@ -140,6 +145,7 @@ categoria_total_cpl = categoria_total_row['CPL'].values[0]
 categoria_groupby["share_custo"] = (categoria_groupby["Amount Spent"]/categoria_total_custo) * 100
 categoria_groupby["share_resultados"] = (categoria_groupby["Results"]/categoria_total_resultados) * 100
 
+categoria_groupby = pd.merge(categoria_groupby,df_metas_categoria_mes[["categoria","meta"]],how="left",left_on=["Categoria"],right_on=["categoria"])
 
 st.dataframe(
     categoria_groupby,
