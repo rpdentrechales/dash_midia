@@ -104,6 +104,8 @@ if (store_filter):
 meta_facebook_mes = meta_selecionada["meta facebook"].values[0]
 df_metas_categoria_mes = df_metas_categoria_mes.loc[df_metas_categoria["plataforma"] == "Facebook"]
 
+df_metas_categoria_mes["meta"] = df_metas_categoria_mes["meta"]/100
+
 metrics_unidade_1,metrics_unidade_2,metrics_unidade_3,metrics_unidade_4,metrics_unidade_5,metrics_unidade_6 = st.columns(6)
 
 total_unidade_resultados = df_filtered["Results"].sum()
@@ -147,8 +149,16 @@ categoria_groupby["share_resultados"] = (categoria_groupby["Results"]/categoria_
 
 categoria_groupby = pd.merge(categoria_groupby,df_metas_categoria_mes[["categoria","meta"]],how="left",left_on=["Categoria"],right_on=["categoria"])
 
-st.dataframe(df_metas_categoria_mes)
-st.dataframe(categoria_groupby)
+categoria_groupby["verba total"] = meta_facebook_mes*categoria_groupby["meta"]
+categoria_groupby["verba restante"] = categoria_groupby["verba total"] - categoria_groupby["Amount Spent"]
+
+if dias_para_o_fim_do_mes:
+  categoria_groupby["verba restante por dia"] = categoria_groupby["verba restante"]/dias_para_o_fim_do_mes
+else:
+  categoria_groupby["verba restante por dia"] = 0
+
+colunas = ["Categoria","Amount Spent","Results","CPL","share_custo","share_resultados","verba total","verba restante","verba restante por dia"]
+display_categoria_df = categoria_groupby[colunas]
 
 st.dataframe(
     categoria_groupby,
@@ -181,8 +191,14 @@ st.dataframe(
             "Share Resultados (%)",
             format="%.2f %%",
             width="small"
+        ),
+        "share_resultados": st.column_config.NumberColumn(
+            "Share Resultados (%)",
+            format="%.2f %%",
+            width="small"
         )
     }
+    ,hide_index = True
   )
 
 st.markdown("## Facebook - Total por categoria")
