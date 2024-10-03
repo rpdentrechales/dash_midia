@@ -176,7 +176,7 @@ st.dataframe(
         ),
         "categoria": st.column_config.Column(
             "Categoria",
-            width="large"
+            width="medium"
         ),
         "Results": st.column_config.NumberColumn(
             "Resultados",
@@ -195,6 +195,21 @@ st.dataframe(
         "share_resultados": st.column_config.NumberColumn(
             "Share Resultados (%)",
             format="%.2f %%",
+            width="small"
+        ),
+        "verba total": st.column_config.NumberColumn(
+            "Verba total",
+            format="R$ %.2f",
+            width="small"
+        ),
+        "verba restante": st.column_config.NumberColumn(
+            "Verba Restante",
+            format="R$ %.2f",
+            width="small"
+        ),
+        "verba restante por dia": st.column_config.NumberColumn(
+            "verba restante por dia",
+            format="R$ %.2f",
             width="small"
         )
     }
