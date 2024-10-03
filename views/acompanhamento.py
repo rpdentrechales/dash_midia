@@ -74,7 +74,7 @@ store_filter = st.selectbox(label = "Selecione a Unidade",
                                    placeholder= 'Selecione a Unidade',
                                    options=df_sem_cirurgia['Unidade'].unique())
 
-st.dataframe(f"{month_filter}")
+st.markdown(f"{month_filter}")
 st.dataframe(f"{df_metas_unidade}")
 
 if (month_filter):
