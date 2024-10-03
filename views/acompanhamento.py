@@ -32,7 +32,7 @@ def load_aux_dataframe(worksheet,duplicates_subset):
 
   return df
 
-df = load_main_dataframe("FB - Compilado")
+df_fb = load_main_dataframe("FB - Compilado")
 
 df_categorias = load_aux_dataframe("Auxiliar - Categorias","Anuncio")
 df_unidades = load_aux_dataframe("Auxiliar - Unidades","Campaign Name")
@@ -41,22 +41,22 @@ df_whatsapp = load_aux_dataframe("Auxiliar - Whatsapp","Ad Name")
 df_metas_categoria = load_aux_dataframe("aux - Configurar metas categoria",["plataforma","month","categoria"])
 df_metas_unidade = load_aux_dataframe("aux - Configurar metas unidade",["unidade","month"])
 
-df = pd.merge(df,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
-df = df.drop(columns=["Anuncio"])
-df["Results"] = df["Results"].fillna(0)
+df_fb = pd.merge(df_fb,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
+df_fb = df_fb.drop(columns=["Anuncio"])
+df_fb["Results"] = df_fb["Results"].fillna(0)
 
-df = pd.merge(df,df_unidades,how="left",left_on="Campaign Name",right_on="Campaign Name")
-df["Unidade"] = df["Unidade"].fillna("Sem Categoria")
-df["Região"] = df["Região"].fillna("Sem Categoria")
+df_fb = pd.merge(df_fb,df_unidades,how="left",left_on="Campaign Name",right_on="Campaign Name")
+df_fb["Unidade"] = df_fb["Unidade"].fillna("Sem Categoria")
+df_fb["Região"] = df_fb["Região"].fillna("Sem Categoria")
 
 whatsapp_map = df_whatsapp.set_index('Ad Name')['Categoria'].to_dict()
-df.loc[df['Account Name'] == "Campanhas Whatsapp","Categoria"] = df.loc[df['Account Name'] == "Campanhas Whatsapp","Ad Name"].map(whatsapp_map)
+df_fb.loc[df_fb['Account Name'] == "Campanhas Whatsapp","Categoria"] = df_fb.loc[df_fb['Account Name'] == "Campanhas Whatsapp","Ad Name"].map(whatsapp_map)
 
-df["Categoria"] = df["Categoria"].fillna("Sem Categoria")
-df["month"] = df["Day"].dt.to_period("M")
+df_fb["Categoria"] = df_fb["Categoria"].fillna("Sem Categoria")
+df_fb["month"] = df_fb["Day"].dt.to_period("M")
 
-df_sem_cirurgia = df.loc[df["Account Name"] != "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
-df_cirurgia = df.loc[df["Account Name"] == "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
+df_sem_cirurgia = df_fb.loc[df_fb["Account Name"] != "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
+df_cirurgia = df_fb.loc[df_fb["Account Name"] == "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 
 titulo_1,titulo_2 = st.columns([3,1])
 
@@ -73,6 +73,11 @@ st.markdown("## Facebook - Total por Unidade")
 store_filter = st.selectbox(label = "Selecione a Unidade",
                                    placeholder= 'Selecione a Unidade',
                                    options=df_sem_cirurgia['Unidade'].unique())
+
+if (month_filter):
+  df_sem_cirurgia = df_sem_cirurgia.loc[df_sem_cirurgia['month'] == month_filter]
+  df_meta_categoria_mes = df_metas_categoria.loc[df_metas_categoria['month'] == month_filter]
+  df_meta_unidade_mes = df_metas_unidade.loc[df_metas_unidade['month'] == month_filter]
 
 if (store_filter):
   df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['Unidade'] == store_filter]
@@ -141,11 +146,6 @@ st.dataframe(
   )
 
 st.markdown("## Facebook - Total por categoria")
-
-if (month_filter):
-  df_sem_cirurgia = df_sem_cirurgia.loc[df_sem_cirurgia['month'] == month_filter]
-  df_meta_categoria_mes = df_metas_categoria.loc[df_metas_categoria['month'] == month_filter]
-  df_meta_unidade_mes = df_metas_unidade.loc[df_metas_unidade['month'] == month_filter]
 
 total_groupby = df_sem_cirurgia.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
 total_groupby = total_groupby.reset_index()
