@@ -41,6 +41,10 @@ df_whatsapp = load_aux_dataframe("Auxiliar - Whatsapp","Ad Name")
 df_metas_categoria = load_aux_dataframe("aux - Configurar metas categoria",["plataforma","month","categoria"])
 df_metas_unidade = load_aux_dataframe("aux - Configurar metas unidade",["unidade","month"])
 
+df_metas_unidade['month'] = pd.to_datetime(df_metas_unidade['month'])
+df_metas_unidade['month'] = df_metas_unidade['month'].dt.to_period('M')
+
+
 df_fb = pd.merge(df_fb,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
 df_fb = df_fb.drop(columns=["Anuncio"])
 df_fb["Results"] = df_fb["Results"].fillna(0)
