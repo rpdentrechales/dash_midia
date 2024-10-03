@@ -102,7 +102,7 @@ if (store_filter):
   meta_selecionada = df_meta_unidade_mes.loc[df_meta_unidade_mes['unidade'] == store_filter]
 
 meta_facebook_mes = meta_selecionada["meta facebook"].values[0]
-df_metas_categoria_mes = df_metas_categoria.loc[df_metas_categoria["plataforma"] == "Facebook"]
+df_metas_categoria_mes = df_metas_categoria_mes.loc[df_metas_categoria["plataforma"] == "Facebook"]
 
 metrics_unidade_1,metrics_unidade_2,metrics_unidade_3,metrics_unidade_4,metrics_unidade_5,metrics_unidade_6 = st.columns(6)
 
