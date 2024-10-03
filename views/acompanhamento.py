@@ -81,6 +81,9 @@ if (month_filter):
 
 if (store_filter):
   df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['Unidade'] == store_filter]
+  meta_selecionada = df_meta_unidade_mes.loc[df_meta_unidade_mes['unidade'] == store_filter]
+
+st.markdown(f"{meta_selecionada}")
 
 metrics_unidade_1,metrics_unidade_2,metrics_unidade_3 = st.columns(3)
 
