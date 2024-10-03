@@ -87,7 +87,9 @@ if (store_filter):
   df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['Unidade'] == store_filter]
   meta_selecionada = df_meta_unidade_mes.loc[df_meta_unidade_mes['unidade'] == store_filter]
 
-st.dataframe(meta_selecionada["meta facebook"])
+meta_facebook = meta_selecionada.loc[1, 'meta facebook']
+
+st.markdown(meta_facebook)
 
 metrics_unidade_1,metrics_unidade_2,metrics_unidade_3 = st.columns(3)
 
