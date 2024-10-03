@@ -7,6 +7,17 @@ import datetime
 
 st.set_page_config(page_title="Pró-Corpo - Acompanhamento", page_icon="💎",layout="wide")
 
+def days_until_end_of_month(period):
+    today = datetime.today()
+
+    if period.year == today.year and period.month == today.month:
+        last_day_of_month = period.end_time
+        days_remaining = (last_day_of_month - pd.Timestamp(today)).days
+        return days_remaining
+    else:
+        return None
+
+
 @st.cache_data
 def load_main_dataframe(worksheet):
 
@@ -95,6 +106,12 @@ total_unidade_custo = df_filtered["Amount Spent"].sum()
 total_unidade_cpl = total_unidade_custo/total_unidade_resultados
 
 verba_restante = meta_facebook_mes - total_unidade_custo
+dias_para_o_fim_do_mes = days_until_end_of_month(month_filter)
+if dias_para_o_fim_do_mes:
+  verba_restante_por_dia = verba_restante/dias_para_o_fim_do_mes
+  verba_restante_por_dia = f"R$ {verba_restante_por_dia :.2f}"
+else:
+  verba_restante_por_dia = "-"
 
 with metrics_unidade_1:
   st.metric("Resultados Total",f"{total_unidade_resultados :.0f}")
@@ -106,6 +123,8 @@ with metrics_unidade_4:
   st.metric("Verba Total",f"R$ {meta_facebook_mes :.2f}")
 with metrics_unidade_5:
   st.metric("Verba Restante",f"R$ {verba_restante :.2f}")
+with metrics_unidade_5:
+  st.metric("Verba Restante",verba_restante_por_dia)
 
 categoria_groupby = df_filtered.groupby(["Categoria"]).agg({"Results":"sum","Amount Spent":"sum"})
 
