@@ -157,7 +157,7 @@ if dias_para_o_fim_do_mes:
 else:
   categoria_groupby["verba restante por dia"] = 0
 
-colunas = ["Categoria","Amount Spent","Results","CPL","share_custo","share_resultados","verba total","verba restante","verba restante por dia"]
+colunas = ["categoria","Amount Spent","Results","CPL","share_custo","share_resultados","verba total","verba restante","verba restante por dia"]
 display_categoria_df = categoria_groupby[colunas]
 
 st.dataframe(
@@ -174,7 +174,7 @@ st.dataframe(
             format="R$ %.2f",
             width="small"
         ),
-        "Categoria": st.column_config.Column(
+        "categoria": st.column_config.Column(
             "Categoria",
             width="large"
         ),
