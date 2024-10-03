@@ -78,21 +78,16 @@ store_filter = st.selectbox(label = "Selecione a Unidade",
                                    placeholder= 'Selecione a Unidade',
                                    options=df_sem_cirurgia['Unidade'].unique())
 
-st.markdown(f"month filter - {type(month_filter)}")
-st.markdown(f"coluna - {df_metas_unidade["month"].dtype}")
-
 if (month_filter):
   df_sem_cirurgia = df_sem_cirurgia.loc[df_sem_cirurgia['month'] == month_filter]
   df_meta_categoria_mes = df_metas_categoria.loc[df_metas_categoria['month'] == month_filter]
   df_meta_unidade_mes = df_metas_unidade.loc[df_metas_unidade['month'] == month_filter]
 
-st.dataframe(df_meta_unidade_mes)
-
 if (store_filter):
   df_filtered = df_sem_cirurgia.loc[df_sem_cirurgia['Unidade'] == store_filter]
   meta_selecionada = df_meta_unidade_mes.loc[df_meta_unidade_mes['unidade'] == store_filter]
 
-st.dataframe(meta_selecionada)
+st.dataframe(meta_selecionada["meta facebook"])
 
 metrics_unidade_1,metrics_unidade_2,metrics_unidade_3 = st.columns(3)
 
