@@ -3,7 +3,7 @@ import altair as alt
 import pandas as pd
 import plotly.express as px
 from streamlit_gsheets import GSheetsConnection
-import datetime
+from datetime import datetime
 
 st.set_page_config(page_title="Pró-Corpo - Acompanhamento", page_icon="💎",layout="wide")
 
