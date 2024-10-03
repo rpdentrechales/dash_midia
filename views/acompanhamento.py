@@ -147,6 +147,8 @@ categoria_groupby["share_resultados"] = (categoria_groupby["Results"]/categoria_
 
 categoria_groupby = pd.merge(categoria_groupby,df_metas_categoria_mes[["categoria","meta"]],how="left",left_on=["Categoria"],right_on=["categoria"])
 
+st.dataframe(categoria_groupby)
+
 st.dataframe(
     categoria_groupby,
     use_container_width=True,
