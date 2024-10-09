@@ -8,7 +8,7 @@ fb_page = st.Page(
     default=True,
 )
 acompanhamento_fb_page = st.Page(
-    "acompanhamento_fb.py",
+    "views/acompanhamento_fb.py",
     title="Acompanhamento FB",
     icon=":material/summarize:",
 )
