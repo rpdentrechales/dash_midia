@@ -20,7 +20,7 @@ def load_main_dataframe(worksheet):
 
   df.drop_duplicates(subset=["Day","Ad ID"],inplace=True)
 
-  conn.update(data=df,worksheet="FB - Compilado")
+  conn.update(data=df,worksheet=worksheet)
 
   return df
 
@@ -33,11 +33,11 @@ def load_aux_dataframe(worksheet,duplicates_subset):
 
   return df
 
-df = load_main_dataframe("FB - Compilado")
+df = load_main_dataframe("Compilado - FB e Gads")
 
-df_categorias = load_aux_dataframe("Auxiliar - Categorias","Anuncio")
-df_unidades = load_aux_dataframe("Auxiliar - Unidades","Campaign Name")
-df_whatsapp = load_aux_dataframe("Auxiliar - Whatsapp","Ad Name")
+df_categorias = load_aux_dataframe("Auxiliar - Categorias - FB","Anuncio")
+df_unidades = load_aux_dataframe("Auxiliar - Unidades - FB","Campaign Name")
+df_whatsapp = load_aux_dataframe("Auxiliar - Whatsapp - FB","Ad Name")
 
 df = pd.merge(df,df_categorias,how="left",left_on="Ad Name",right_on="Anuncio")
 df = df.drop(columns=["Anuncio"])
@@ -57,6 +57,8 @@ st.markdown(
     '<style>.centered-title { text-align: center; }</style><h1 class="centered-title">Dash Mídia Facebook</h1>',
     unsafe_allow_html=True
 )
+
+df = df.loc[df["Plataforma"] == "Facebook"]
 
 df_sem_cirurgia = df.loc[df["Account Name"] != "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
 df_cirurgia = df.loc[df["Account Name"] == "CA1 - ANUNCIANTE - MAIS CIRURGIA"]
