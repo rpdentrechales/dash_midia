@@ -83,7 +83,7 @@ with titulo_1:
 with titulo_2:
   month_filter = st.selectbox(label = "Selecione o Mês",
                                    placeholder= 'Selecione o mês',
-                                   options=sorted(df_sem_cirurgia['month'].unique(),reverse=True)_
+                                   options=sorted(df_sem_cirurgia['month'].unique(),reverse=True))_
 
 st.markdown("## Facebook - Total por Unidade")
 
