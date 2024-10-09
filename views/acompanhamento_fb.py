@@ -45,9 +45,9 @@ def load_aux_dataframe(worksheet,duplicates_subset):
 
 df_fb = load_main_dataframe("Compilado - FB e Gads")
 
-df_categorias = load_aux_dataframe("Auxiliar - Categorias","Anuncio")
-df_unidades = load_aux_dataframe("Auxiliar - Unidades","Campaign Name")
-df_whatsapp = load_aux_dataframe("Auxiliar - Whatsapp","Ad Name")
+df_categorias = load_aux_dataframe("Auxiliar - Categorias - FB","Anuncio")
+df_unidades = load_aux_dataframe("Auxiliar - Unidades - FB","Campaign Name")
+df_whatsapp = load_aux_dataframe("Auxiliar - Whatsapp - FB","Ad Name")
 
 df_metas_categoria = load_aux_dataframe("aux - Configurar metas categoria",["plataforma","month","categoria"])
 df_metas_unidade = load_aux_dataframe("aux - Configurar metas unidade",["unidade","month"])
