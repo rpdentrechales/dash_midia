@@ -7,9 +7,9 @@ fb_page = st.Page(
     icon=":material/thumb_up:",
     default=True,
 )
-acompanhamento_page = st.Page(
-    "views/acompanhamento.py",
-    title="Acompanhamento",
+acompanhamento_fb_page = st.Page(
+    "acompanhamento_fb.py",
+    title="Acompanhamento FB",
     icon=":material/summarize:",
 )
 metas_categoria_page = st.Page(
@@ -40,7 +40,7 @@ gsheets_test = st.Page(
 # --- NAVIGATION SETUP [WITH SECTIONS]---
 pg = st.navigation(
     {
-        "Relatórios": [fb_page, acompanhamento_page],
+        "Relatórios": [fb_page, acompanhamento_fb_page],
         "Cadastrar Metas": [metas_unidade_page,metas_categoria_page]
     }
 )
