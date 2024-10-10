@@ -19,7 +19,7 @@ st.session_state.setdefault("meta_categoria_df", load_dataframe("aux - Configura
 
 df_metas = st.session_state["meta_categoria_df"]
 
-df_categorias = load_dataframe("Auxiliar - Categorias")
+df_categorias = load_dataframe("Auxiliar - Categorias - FB")
 categorias = df_categorias["Categoria"].unique()
 categorias = list(categorias)
 
