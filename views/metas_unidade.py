@@ -16,10 +16,9 @@ def load_dataframe(worksheet):
 st.markdown("# Cadastrar Metas por Unidade")
 
 st.session_state.setdefault("meta_unidade_df", load_dataframe("aux - Configurar metas unidade"))
-
 df_metas = st.session_state["meta_unidade_df"]
 
-df_unidades = load_dataframe("Auxiliar - Unidades - FB")
+df_unidades = load_dataframe("Auxiliar")
 unidades = df_unidades["Unidade"].sort_values(ascending=True).unique()
 unidades = list(unidades)
 
