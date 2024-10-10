@@ -19,7 +19,7 @@ st.session_state.setdefault("meta_unidade_df", load_dataframe("aux - Configurar 
 
 df_metas = st.session_state["meta_unidade_df"]
 
-df_unidades = load_dataframe("Auxiliar - Unidades")
+df_unidades = load_dataframe("Auxiliar - Unidades - FB")
 unidades = df_unidades["Unidade"].sort_values(ascending=True).unique()
 unidades = list(unidades)
 
